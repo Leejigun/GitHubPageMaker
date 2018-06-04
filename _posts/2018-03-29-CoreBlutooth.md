@@ -5,7 +5,7 @@ navigation: True
 title:  "CoreBluetooth 가이드"
 date:   2018-03-29 00:00:00
 cover: assets/images/CoreBluetooth/first.png
-tags: [ iOS tip ]
+tags: [ ios tip ]
 description: ios Fido 프로젝트를 진행하면서 CoreBluetooth를 다룬 경험을 포스팅한다.
 class: post-template
 subclass: 'post tag-getting-started'

@@ -15,6 +15,6 @@ getting-started:
   description: False
   cover: False
 ios-tip:
-  name: iOS-tip
+  name: ios-tip
   description: iOS development tips
   cover: False
