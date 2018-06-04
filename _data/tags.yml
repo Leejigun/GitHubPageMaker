@@ -6,10 +6,10 @@ fiction:
   name: fiction
   description: False
   cover: False
-fables:
-  name: fables
-  description: A series of short stories that make you think.
-  cover: assets/images/fables.jpg
+tayga:
+  name: tayga
+  description: Tayga 앱 개발기
+  cover: false
 getting-started:
   name: getting-started
   description: False
