@@ -98,8 +98,8 @@ feed:
 # repo defaults to USERNAME.github.io
 # Branch defaults to "source" for USERNAME.github.io
 # or "master" otherwise
-safe: true
-lsi: true
+safe: False
+lsi: False
 # Travis-CI 설정입니다.
 
 username: leejigun
