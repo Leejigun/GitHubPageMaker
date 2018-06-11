@@ -1,19 +1,8 @@
-speeches:
-  name: speeches
-  description: Some of the greatest words ever spoken.
-  cover: assets/images/speeches.jpg
-fiction:
-  name: fiction
-  description: False
-  cover: False
+
 tayga:
   name: tayga
   description: Tayga 앱 개발기
   cover: false
-getting-started:
-  name: getting-started
-  description: False
-  cover: False
 ios-tip:
   name: ios-tip
   description: iOS development tips

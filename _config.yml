@@ -35,9 +35,10 @@ description: iOS developer.
 cover: assets/images/blog-cover.jpg
 # blog home에 표시될 blog cover image.
 logo: assets/images/blog-icon.png
-logo_dark: assets/images/favicon.png
+logo_dark: assets/images/blog-icon.png
+# logo_dark: assets/images/favicon.png
 
-favicon: assets/images/favicon.png
+favicon: assets/images/blog-icon.png
 # favicon으로 사용할 image
 production_url: https://leejigun.github.io/
 # 최종적으로 blog가 운영될 url

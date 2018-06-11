@@ -8,10 +8,14 @@ class: page-template
 subclass: 'post page'
 ---
 
-Ghost is professional publishing platform designed for modern journalism. This is a demo site of a basic Ghost install to give you a general sense of what a new Ghost site looks like when set up for the first time.
+안녕하세요.
 
-> If you'd like to set up a site like this for yourself, head over to [Ghost.org](https://ghost.org/) and start a free 14 day trial to give Ghost a try!
+Openit에서 iOS 개발자로 근무중인 이지건입니다.
 
-If you're a developer: Ghost is a completely open source (MIT) Node.js application built on a JSON API with an Ember.js admin client. It works with MySQL and SQLite, and is publicly available [on Github](https://github.com/TryGhost/ghost).
+아직 미천한 실력이지만, 여러가지 다양한 개발 기술들을 공부하고 실험하면서 배우는 다양한 경험들을 기록하고자 만든 블로그입니다.
 
-If you need help with using Ghost, you'll find a ton of useful articles on [our knowledgebase](https://help.ghost.org/), as well as extensive [developer documentation](https://docs.ghost.org/).
+사내에서는 주로 Objective - c를 사용하지만, 여기서 다루는 내용은 주로 Swift와 RxSwift를 통한 개발 경험을 다루게 될 것 같습니다.
+
+> 만약, 저에 대해서 궁금하거나 묻고 싶은 내용이 있으시다면, 제 [github](https://github.com/Leejigun) 혹은 *dlwlrjs1@naver.com* 으로 연락 주세요
+
+![명함](https://openit.openclib.com/static/sign/jglee.gif)
