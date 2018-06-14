@@ -3,7 +3,7 @@ layout: post
 current: post
 navigation: True
 title:  "코드를 통한 기초적인 다이나믹 뷰 디자인"
-date:   2018-06-11 00:00:00
+date:   2018-06-14 00:00:00
 cover: assets/images/snapkit.jpeg
 description: masonry 라이브러리를 사용해 동적으로 뷰를 만들어 봅시다.
 tags: [ ios tip ]
