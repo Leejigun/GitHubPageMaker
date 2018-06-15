@@ -16,6 +16,17 @@ Openit에서 iOS 개발자로 근무중인 이지건입니다.
 
 사내에서는 주로 Objective - c를 사용하지만, 여기서 다루는 내용은 주로 Swift와 RxSwift를 통한 개발 경험을 다루게 될 것 같습니다.
 
-> 만약, 저에 대해서 궁금하거나 묻고 싶은 내용이 있으시다면, 제 [github](https://github.com/Leejigun) 혹은 *dlwlrjs1@naver.com* 으로 연락 주세요
+> 2017.12 ~ 2018.06 - **FIDO iOS**<br>
+> - Authenticator + Client Combo 개발 및 FIDO 인증
+
+> 2018.02 ~ 2018.04 - **자사 프로젝트 운영**<br>
+> - SoS 누르미 - 이용약관, 버전체크 로직 추가 개발 <br>
+> - 혈압 다이어리 - iPhone X UI 대응 개발
+
+> 2018.02 ~ 2018.03 - **KIMES 전시회 출품**<br>
+> - 헬스업 스테이션 연동 추가 개발<br>
+
+> 2018.05 ~ 2018.06 - **혈압 다이어리 개발**<br>
+> - 측정패턴, 자기관리, 목표달성, 코호트 DB를 통한 분포도 개발
 
 ![명함](https://openit.openclib.com/static/sign/jglee.gif)

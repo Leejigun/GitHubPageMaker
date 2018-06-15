@@ -2,7 +2,7 @@
 layout: post
 current: post
 navigation: True
-title:  "코드를 통한 기초적인 다이나믹 뷰 디자인"
+title:  "[Programmatically Views](1) - 코드를 통한 기초적인 다이나믹 뷰 디자인"
 date:   2018-06-14 00:00:00
 cover: assets/images/snapkit.jpeg
 description: masonry 라이브러리를 사용해 동적으로 뷰를 만들어 봅시다.
@@ -12,7 +12,7 @@ subclass: 'post tag-getting-started'
 author: jglee
 ---
 
-(상단의 사진은 Snapkiit 라이브러리고 이번에 사용한 라이브러리는 같은 곳에서 만든 Objc 용 masonry입니다.)
+(상단의 사진은 Snapkit 라이브러리고 이번에 사용한 라이브러리는 같은 곳에서 만든 Objc 용 Masonry입니다.)
 
 
 
@@ -40,7 +40,7 @@ author: jglee
 
 ![items](../assets/images/reportItme.png)
 
- 하나의 아이템은 제목, 수치, 날짜, 차트, 설명 라벨로 구성됩니다. 이 형태가 안에 내용물만 조금 바뀌면서 반복됩니다. 
+ 하나의 아이템은 제목, 수치, 날짜, 차트, 설명 라벨로 구성됩니다. 이 형태가 안에 내용물만 조금 바뀌면서 반복됩니다.
 
  모든 아이템을 다 살펴보면 너무 포스가 길어지니 이번에는 최상단의 라벨을 올리는 방법을 살펴봅시다.
 
@@ -48,7 +48,7 @@ author: jglee
 
  사실, 저 라벨은 그냥 라벨만 올라가있는 화면이 아닙니다. 적절한 위치와 마진을 잡기 위해서 UIView를 올려 자리를 잡고 그 안에 라벨을 올리는 방법으로 뷰를 그렸습니다. 그냥 라벨만 올려서 화면을 만들어도 되지만, 저는 안드로이드 개발할 때 부터 이런 식으로 작업하는게 익숙해져서 UIView를 위에 올렸습니다.
 
- 
+
 
 먼저 `UIView`와 `UILabel`을 만듭니다.
 
@@ -60,7 +60,7 @@ UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, scrollViewW
 
  `yPosition` 은 이 뷰를 붙일 높이 위치를 잡기 위한 변수고, 최상단에 붙는 라벨이니 지금은 0입니다.
 
-  
+
 
 그 다음으로 라벨에 속성값을 셋팅합니다.
 
@@ -72,7 +72,7 @@ textLabel.textColor = UIColorFromRGB(0x9b9b9b);
 textLabel.numberOfLines = 2;
 ```
 
- 
+
 
 이제 라벨을 UIView에 올립니다.
 
@@ -80,7 +80,7 @@ textLabel.numberOfLines = 2;
 [firstLabel addSubview:textLabel];
 ```
 
- 
+
 
 여기서 이제 제약을 추가해서 UIView에서 라벨이 차지할 위치를 정하게 됩니다.
 
@@ -114,8 +114,3 @@ yPosition = yPosition + firstLabel.frame.size.height;
  저는 주로 말 그대로 스토리, 흐름이 있는 화면 구성에는 스토리보드를 쓰고, 흐름이 없는 팝업 화면 같은 경우에는 xib를 주로 쓰고 있으며 이런 동적 화면은 xib 파일과 코드를 이용해 화면을 개발하고 있습니다. 아무리 복잡하고 불규칙한 화면도 이런식으로 분할해서 구조를 잡으면 생각보다 간단한 문제일 수 있습니다.
 
  다음 포스트에서는 제가 이번 추가 개발에서 코드로 뷰를 구성한 활용 사례들을 뜯어보고 회고하는 포스트를 올리겠습니다.
-
-
-
-
-
