@@ -75,6 +75,4 @@ DiseaseSurbeyViewController *surbeyController = [[DiseaseSurbeyViewController al
 
 ![소스](https://i.stack.imgur.com/fzu7d.jpg)
 
-근데, 여기 링크에서 알려주는 방법을 보니 UIView를 만들고 거기에 디자인을 넣고 Owner에 바인딩을 해줘야 했습니다. 아마 추측하기에 `initWithNibName:bundle:`  자체가 controller를 만들면서 context를 획득하고 화면에 표시할 UIView만 선택해 주는 과정만을 수행하는 것 같습니다.
-
- 저는 그것도 모르고 UIView에 UIViewController를 계속 집어넣으려 했으니 IBOutlet을 못찾는 문제가 발생했던 것이었습니다. 
+ 근데, 여기 링크에서 알려주는 방법을 보니 UIView를 만들고 거기에 디자인을 넣고 Owner에 바인딩을 해줘야 했습니다. 아마 추측하기에 `initWithNibName:bundle:`  자체가 controller를 만들면서 context를 획득하고 화면에 표시할 UIView만 선택해 주는 과정만을 수행하는 것 같습니다.
