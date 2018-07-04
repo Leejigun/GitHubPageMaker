@@ -1,14 +1,19 @@
-
 tayga:
   name: tayga
   description: Tayga 앱 개발기
   cover: ./assets/images/taygaCover.jpg
+
 ios-tip:
   name: ios-tip
   description: iOS development tips
   cover: ./assets/images/iosTipCover.jpeg
 
-TDD:
-  name: TDD
+tdd:
+  name: tdd
   description: test driven development
   cover: ./assets/images/tdd/tdd_cover.png
+
+rxswift:
+  name: rxswift
+  description: RxSwift, MVVM
+  cover: ./assets/images/RxSwift/rxswift_cover.jpg
