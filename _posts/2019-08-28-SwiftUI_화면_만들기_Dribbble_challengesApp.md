@@ -3,10 +3,10 @@ layout: post
 current: post
 navigation: True
 title:  "SwiftUI 화면 만들기 - Challenges App"
-date:   2019-08-27 00:00:01
+date:   2019-08-28 00:00:01
 cover: assets/images/SwiftUI/challengesApp.png
-description: RxSwift Deep Cuts 번역
-tags: [ RxSwift ]
+description: SwiftUI 앱 디자인 테스트
+tags: [ swiftUI ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
