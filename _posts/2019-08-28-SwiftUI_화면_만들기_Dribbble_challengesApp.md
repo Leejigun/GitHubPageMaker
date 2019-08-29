@@ -6,7 +6,7 @@ title:  "SwiftUI 화면 만들기 - Challenges App"
 date:   2019-08-28 00:00:01
 cover: assets/images/SwiftUI/challengesApp.png
 description: SwiftUI 앱 디자인 테스트
-tags: [ swiftUI ]
+tags: [ swiftui ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
