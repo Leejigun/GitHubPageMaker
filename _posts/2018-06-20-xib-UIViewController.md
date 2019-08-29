@@ -28,7 +28,7 @@ author: jglee
 
  처음 시도는 UIView를 만들어서 화면에 띄우는 방법대로 `init` 를 만들었습니다.
 
-```
+```swift
 - (instancetype)init {
     self = [super init];
     if(self) {
@@ -42,7 +42,7 @@ author: jglee
 
  이렇게 init를 만들고 `presentViewController` 로 화면에 띄웠습니다.
 
-```
+```swift
 DiseaseSurbeyViewController *surbeyController = [[DiseaseSurbeyViewController alloc]init];
 [self presentViewController:surbeyController animated:YES completion:nil];
 ```
@@ -64,7 +64,7 @@ DiseaseSurbeyViewController *surbeyController = [[DiseaseSurbeyViewController al
 
  init에서 읽어와 `loadNibNamed` 을 사용해 뷰를 읽는 것은 UIView를 읽기는 하지만 Context를 못읽는 것 같아 찾아보니 다른 소스들에서는 `initWithNibName:bundle:`  를 사용해서 controller를 읽어오는 것을 확인했습니다.
 
-```
+```swift
 DiseaseSurbeyViewController *surbeyController = [[DiseaseSurbeyViewController alloc] initWithNibName:@"DiseaseSurbeyViewController" bundle:nil];
 [self presentViewController:surbeyController animated:YES completion:nil];
 ```

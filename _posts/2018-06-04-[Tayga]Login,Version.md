@@ -53,7 +53,7 @@ Tayga 앱 구현의 첫번째 게시물로 가장 첫 진입점인 LoginViewCont
 
  사용법은 매우 간단한데, Navigation Drawer의 생성자를 살펴보면
 
-```
+```swift
 AppDelegate.swift
 window = UIWindow(frame: Screen.bounds)
 window!.rootViewController = NaviDrawerController(
@@ -68,7 +68,7 @@ window!.makeKeyAndVisible()
 
  navigation drawer에 당연히 toolbar가 존재해야 한다고 생각해서 custom toolbar Controller를 만들었다.
 
-```
+```swift
 class NaviToolbarController: ToolbarController {
     /// 왼쪽 메뉴바 버튼
     let menuButton: IconButton = {
@@ -119,7 +119,7 @@ class NaviToolbarController: ToolbarController {
 
  말로만 보면 복잡해 보일 수 있으니 아래 코드를 보자.
 
-```
+```swift
 // 네비게이션 컨트롤러를 스토리보드에서 불러온다. 이름으로 "Navigation"을 줘서 찾아오도록 했다.
 // 네비게이션의 root controller가 LoginViewController
 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -150,7 +150,7 @@ window!.makeKeyAndVisible()
 
 버전 체크로 firebase의 DB에서 정보를 꺼내서 비교하도록 했다. 코드를 보면 아래와 같다.
 
-```
+```swift
 AppDelegate.swift
 override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,7 +164,7 @@ override func viewDidLoad() {
 
 firebase DB 설정은 최 상단의 가이드를 살펴보기를 바란다. 내가 이 부분에서 언급하고 싶은 부분은 Rx와 관련된 부분이다.  checkUpVersion() 메소드를 보면 아래와 같다.
 
-```
+```swift
 AppDelegate.swift
 /// Check Version on firebase DB
 private func checkUpVersion() ->Single<Bool> {
@@ -207,7 +207,7 @@ private func checkUpVersion() ->Single<Bool> {
 
  두 버튼은 아래 코드와 같다.
 
-```
+```swift
 let googleButton: RaisedButton = {
         let button = RaisedButton(title: "Google Login", titleColor: Color.grey.base)
         button.image = #imageLiteral(resourceName: "ic_google")
@@ -228,7 +228,7 @@ let googleButton: RaisedButton = {
 
    이 두 버튼을 화면에 붙이고 constraints를 설정하는데 Snapkit을 썼다.
 
-```
+```swift
 /// 화면 UI 설정
 private func setUpUI() {
     self.toolbarController?.toolbar.title = "PRESS START"

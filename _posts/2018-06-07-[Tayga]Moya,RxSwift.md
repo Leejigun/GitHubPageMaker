@@ -20,13 +20,13 @@ author: jglee
 
 
 
-## MoyaProvider 
+## MoyaProvider
 
  시작하기 앞서 GameListViewModel을 만들어줍니다.
 
  (이 ViewModel은 GameListViewController의 뷰 모델로 게임 리스트를 뿌려줄 로직을 정의하기 위해서 분리되었습니다. API를 통한 데이터 불러오기, 가공 등의 작업을 수행하고 controller에서 화면서 그리는 작업을 수행하도록 하겠습니다.)
 
-```
+```swift
 struct GameListViewModel {
 	let provider: MoyaProvider<TwitchAPI>
 	init() {
@@ -39,7 +39,7 @@ struct GameListViewModel {
 
  Provider를 통해서 네트워크 통신을 수행합니다. 하지만 RxSwift를 사용하기 전에 Moya github에 나와있는 Rx를 사용하지 않는 Provider의 사용법을 먼저 확인해 봅시다.
 
-```
+```swift
 provider = MoyaProvider<GitHub>()
 provider.request(.zen) { result in
     switch result {
@@ -62,7 +62,7 @@ provider.request(.zen) { result in
 
 이것을 RxSwift를 쓰면 어떻게 될까요?
 
-```
+```swift
 provider = MoyaProvider<GitHub>()
 provider.rx.request(.userProfile("ashfurrow")).subscribe { event in
     switch event {
@@ -80,11 +80,11 @@ provider.rx.request(.userProfile("ashfurrow")).subscribe { event in
 
 
 
-## RxSwift 연산자 
+## RxSwift 연산자
 
  이제 제가 만든 게임 리스트 메소드를 봅시다.
 
-```
+```swift
 /// get Games Struct from Server
 ///
 /// - Parameters:
@@ -108,19 +108,19 @@ internal func getGameList(limit:Int?,offset: Int?) -> Observable<[GameViewModel]
 
  하나 하나 뜯어봅시다. provider의 request 메소드는 `PrimitiveSequence<SingleTrait, Response>` 를 반환합니다. 이 반환값을 그냥 구독해서 사용할 수도 있지만, Obserable에 있는 다양한 오퍼레이터를 사용해 사전 가공할 수 있습니다. 오퍼레이터에 대해서는 RxSwift 깃에 자세히 나와있고 여기서는 실제 제가 짠 코드를 뜯어봅시다.
 
-```
+```swift
 .retry(3)
 ```
 
- Retry의 경우 에러가 발생하면 다시 시도하는 횟수를 지정할 수 있습니다. 여기서는 3회 반복하도록 했습니다. 
+ Retry의 경우 에러가 발생하면 다시 시도하는 횟수를 지정할 수 있습니다. 여기서는 3회 반복하도록 했습니다.
 
 Rx의 장점인 선언형 프로그래밍을 따라서 윗줄부터 한줄 한줄 뜯어보면 제일 `asObserable()` 은 앞서 리턴값인 시퀀스를 `Observable<>` 형태로 묶어주는 것입니다. 이 부분을 지나면 반환값은 `Observable<Response>`  형태가 됩니다.
 
 
 
-  이 JSON Data를 GameStruct구조체에 담는 동작이 두번째 줄에서 벌어지는 동작입니다. 
+  이 JSON Data를 GameStruct구조체에 담는 동작이 두번째 줄에서 벌어지는 동작입니다.
 
-```
+```swift
 .map { try JSONDecoder().decode(GamesStruct.self, from: $0.data) }
 ```
 
@@ -136,7 +136,7 @@ Rx의 장점인 선언형 프로그래밍을 따라서 윗줄부터 한줄 한�
 
  다음줄을 살펴봅시다.
 
-```
+```swift
 .catchErrorJustReturn(nil)
 ```
 
@@ -146,7 +146,7 @@ Rx의 장점인 선언형 프로그래밍을 따라서 윗줄부터 한줄 한�
 
 
 
-```
+```swift
 .map { $0?.top ?? [] }
 ```
 
@@ -154,7 +154,7 @@ Rx의 장점인 선언형 프로그래밍을 따라서 윗줄부터 한줄 한�
 
 
 
-```
+```swift
 .map { $0.enumerated().map { GameViewModel(game: $1, offset: self.offset) } }
 ```
 
@@ -164,7 +164,7 @@ Rx의 장점인 선언형 프로그래밍을 따라서 윗줄부터 한줄 한�
 
 이제 이 값을 구독하면 데이터를 확인 할 수 있습니다.
 
-```
+```swift
 func loadData() {
     getGameList(limit:10,offset: 0)
     	.subscribe(onNext: {
@@ -229,7 +229,7 @@ This scheduler is suitable for cases when there is some bigger chunk of work tha
 
  다시 RxSwift로 돌아와 문서 내용을 읽어보면 친절하게 `MainScheduler` 는 UI 작업에 적합하고 `Concurrent Dispatch QueueScheduler` 는 백그라운드 작업을 수행할 때 사용하라고 달려있습니다.
 
-```
+```swift
 return provider.rx.request(.getTopGame(param))
         	.retry(3)
         	.asObservable()
@@ -239,11 +239,11 @@ return provider.rx.request(.getTopGame(param))
             .map { $0.enumerated().map { GameViewModel(game: $1, offset: self.offset) } }
 ```
 
- 기존에 사용했던 메소드입니다. 
+ 기존에 사용했던 메소드입니다.
 
  ` SubscribeOn` 은 어디서 `Observable` 시작할 것인지, `ObserveOn()` 은 중간에 흐름을 바꿀 때 사용합니다. 그렇다면 여기서 모든 동작을 백그라운드에서 수행하도록 하겠습니다.
 
-```
+```swift
 return provider.rx.request(.getTopGame(param))
         	.retry(3)
         	.observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
@@ -256,7 +256,7 @@ return provider.rx.request(.getTopGame(param))
 
  간단하게 한줄 추가하는 것으로 백그라운드 작업을 가능하게 했습니다. 만약, 데이터를 가져오고 그 후 UI 작업을 수행하게 된다면, 흐름을 바꿔줘야 합니다.
 
-```
+```swift
 func loadData() {
     getGameList(limit:10,offset: 0)
     	.observeOn(MainScheduler.instance)

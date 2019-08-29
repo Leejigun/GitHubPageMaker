@@ -118,7 +118,7 @@ author: jglee
 
  레스토랑의 iOS응용 프로그램을 개발하고 있으며 주문 기능을 구현해야 한다고 가정합니다. 여러분은 디쉬와 오더라는 두개의 구조물을 소개할 수 있고, 주문/구매자의 도움으로 다른 요리 세트로 주문을 작성할 수 있습니다.
 
-```
+```swift
 // Design Patterns: Builder
 import Foundation
 
@@ -239,7 +239,7 @@ order?.price
 
  iOS응용 프로그램에서 일정 관리 및 이벤트 관리 기능을 구현하려고 합니다. 이를 위해서는 Even.it 프레임워크를 통합하고 이벤트 모델을 프레임워크에서 애플리케이션의 모델로 조정해야 합니다. 어댑터는 프레임워크의 모델을 포장하여 애플리케이션의 모델과 호환되도록 할 수 있습니다.
 
-```
+```swift
 // Design Patterns: Adapter
 import EventKit
 
@@ -335,7 +335,7 @@ adapter.description
 
  iOS애플리케이션에서 데이터 관리를 구현해야 한다고 가정해 보십시오. 데이터 암호화 및 암호 해독을 위한 암호 해독기와 인코딩 및 디코딩을 위한 암호 해독기를 만들 수 있습니다.
 
-```
+```swift
 // Design Patterns: Decorator
 import Foundation
 
@@ -475,7 +475,7 @@ source.readData() as! String
 
  많은 최신 모바일 응용 프로그램이 오디오 녹음 및 재생을 지원하므로 이 기능을 구현해야 한다고 가정해 보겠습니다. Facade패턴을 사용하여 파일 시스템(FileService), 오디오 세션(AudioSessionService), 오디오 녹음(RecordServe), 재생(재생/서비스)의 서비스 구현을 숨길 수 있습니다. Facade는 다소 복잡한 클래스 시스템을 위한 단순한 인터페이스를 제공합니다.
 
-```
+```swift
 // Design Patterns: Facade
 import AVFoundation
 
@@ -681,7 +681,7 @@ audioFacade.numberOfRecords()
 
  iOS앱에서 사진을 찍고 저장할 수 있어야 한다고 가정합니다. 따라서 응용 프로그램에서 iPhone(또는 iPad)카메라와 이미지 갤러리를 사용할 수 있는 권한을 얻어야 합니다. 이렇게 하려면 특정 알고리즘이 있는 PermissionService기본 클래스를 사용하면 됩니다. 카메라와 갤러리를 사용할 권한을 얻으려면 특정 단계를 공유하는 CameraPermissionService및 PhotoPermissionService라는 두개의 하위 클래스를 만듭니다.
 
-```
+```swift
 // Design Patterns: Template Method
 import AVFoundation
 import Photos

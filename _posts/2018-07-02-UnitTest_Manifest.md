@@ -32,18 +32,18 @@ author: jglee
 
 * 각각의 테스트는 **빨라야** 합니다.
 * **단위 테스트에 네트워킹이 없습니다.** 단위 테스트에서 네트워킹 이벤트를 수행하면 단위 테스트가 아닙니다!
-* **테스트는 독립적이고 격리되어야 한다.** 시험은 다른 시험에 대해서는 상태를 변화시키지 않아야 하며 서로가 종속되어서는 안됩니다. 
-* **시험은 반복 가능해야 한다.** 시험을 망치는 것은 그것의 가치보다 더 큰 해를 끼친다. 수정하거나 삭제합니다. 
+* **테스트는 독립적이고 격리되어야 한다.** 시험은 다른 시험에 대해서는 상태를 변화시키지 않아야 하며 서로가 종속되어서는 안됩니다.
+* **시험은 반복 가능해야 한다.** 시험을 망치는 것은 그것의 가치보다 더 큰 해를 끼친다. 수정하거나 삭제합니다.
 * **사용자가 제어할 수 없는 종속성이 없습니다.** 시스템 날짜, 표준 시간대 등에 따라 다른 테스트를 수행하지 마십시오. 이러한 테스트는 테스트 제품 군이나 테스트 환경에 있어야 합니다. 믿을 수 없는 데이터는 가까운 미래 날짜에 의존해서는 안 된다.
 
 
 
 또한 좋은 테스트는 다음과 같은 형태를 취합니다.
 
-```
+```swift
 // 1
 func test_behaviorBeingTested_contextItsTestedUnder() {
-    
+
     // 2
     objectUnderTest.service = SomeMockService()
 
@@ -77,10 +77,10 @@ func test_behaviorBeingTested_contextItsTestedUnder() {
 
  우리는 항상 먼저 가장 간단하고 빈 형태의 메소드를 만들고 그것이 실패하는 테스트를 작성하고 테스트가 통과할때 까지 리펙토링을 진행해야 합니다.
 
-```
+```swift
 /* in the production code */
 // 1
-func text(for trafficLight: TrafficLight) -> String { 
+func text(for trafficLight: TrafficLight) -> String {
   return String()
 }
 
@@ -88,21 +88,21 @@ func text(for trafficLight: TrafficLight) -> String {
 // 2
 func test_textForTrafficLight_red() {
   let expected = "Red"
-  let actual = text(for: .red) 
+  let actual = text(for: .red)
 
   XCTAssertEqual(expected, actual)
 }
 
 func test_textForTrafficLight_yellow() {
   let expected = "Yellow"
-  let actual = text(for: .yellow) 
+  let actual = text(for: .yellow)
 
   XCTAssertEqual(expected, actual)
 }
 
 func test_textForTrafficLight_green() {
   let expected = "Green"
-  let actual = text(for: .green) 
+  let actual = text(for: .green)
 
   XCTAssertEqual(expected, actual)
 }
@@ -153,7 +153,7 @@ func test_textForTrafficLight_green() {
 
  모델은 보통 코드를 쓸 때 제일 먼저 시작합니다. 대부분의 프로세싱보다 테스트하기가 쉽습니다. 비교적 독립적 입니다. 다음과 같은 모델에 대한 테스트를 작성하지 않아도 됩니다.
 
-```
+```swift
 struct Card {
     let rank: Rank
     let suit: Suit
@@ -168,14 +168,14 @@ struct Card {
 
  모델 팩토리는 테스트를 위해서 변수가 없어도 객체를 만들 수 있습니다.
 
-```
-import XCTest 
+```swift
+import XCTest
 @testable import MyModule
 // 1
 enum CardFactory {
     // 2
     static func create(
-        rank: Rank = .ace, 
+        rank: Rank = .ace,
         suit: Suit = .spade
     ) -> Card {
         return Card(rank: rank, suit: suit)
@@ -217,7 +217,7 @@ XCUITest는 애플의 UI 테스트 프레임워크에 있는 Xcode 테스트입�
 
  많은 프로젝트에서 [iOS-Snapshot-Test-Case](https://github.com/uber/ios-snapshot-test-case) 를 사용하고 있고 XCUITest와 달리 빠르고 신뢰할 수 있습니다.
 
-```
+```swift
 import FBSnapshotTestCase
 
 // 1
@@ -263,10 +263,10 @@ class FBSnapshotTestCaseSwiftTest: FBSnapshotTestCase {
 
  네비게이션을 테스트하려면 UIWindow가 필요하다.
 
-```
+```swift
 /* in the test class */
 
-// 1 
+// 1
 var window: UIWindow!
 var controller: MyController!
 var navigationController: UINavigationController!
@@ -291,7 +291,7 @@ override func setUp() {
 
  아래와 같은 방법으로 안정하게 네비게이션 테스트를 진행할 수 있습니다.
 
-```
+```swift
 // Testing Push Navigation
 func test_tableViewSelection_displaysCar_whenSelectingCarRow() {
   controller.tableView(controller.tableView, didSelectRowAt: IndexPath(item: 0, section: MyController.Section.cars.rawValue)
@@ -300,9 +300,9 @@ func test_tableViewSelection_displaysCar_whenSelectingCarRow() {
 
 // Testing Presentation Navigation
 func test_carFilterButton_presentsCarFilterView() {
-  controller.didSelectFilterButton() 
+  controller.didSelectFilterButton()
   XCTAssertNotNil(controller.presentedViewController)
-  XCTAssert(controller.presentedViewController is CarFilterView) 
+  XCTAssert(controller.presentedViewController is CarFilterView)
 }
 ```
 
@@ -312,15 +312,15 @@ func test_carFilterButton_presentsCarFilterView() {
 
 #### Delegate Conformance
 
- 델리게이트를 테스트할 경우 우리는 델리게이트를 통해 수행되는 조치가 수행되었는지 테스트하는데 목적을 둡니다. 이 기능은 다른 기능을 테스트하는 것과 다르지 않아야 합니다. 
+ 델리게이트를 테스트할 경우 우리는 델리게이트를 통해 수행되는 조치가 수행되었는지 테스트하는데 목적을 둡니다. 이 기능은 다른 기능을 테스트하는 것과 다르지 않아야 합니다.
 
-```
+```swift
 /* in the controller */
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
   /* some code to return a configured cell */
 }
 
-/* in the test class */ 
+/* in the test class */
 func test_cellForRowAt_emptyState() {
   // 1
   let indexPath = IndexPath(item: 0, section: 0)
@@ -347,14 +347,14 @@ func test_cellForRowAt_emptyState() {
 
  네트워킹을 테스트할 때는 실제로 네트워크에 연결하지 않는다는 점을 기억하는 것이 중요합니다. 네트워킹을 테스트할 때는 Stubs 데이터를 사용해 응답에 대해 작업하는 것이 표준입니다.
 
-```
+```swift
 /* in PersonStub.json */
 {
   "name": "Hesham Salman",
   "age": 25
 }
 
-/* in test helper */ 
+/* in test helper */
 func stubbedResponse(filename: String) -> Data {
     @objc class TestClass: NSObject { }
 
@@ -366,20 +366,20 @@ func stubbedResponse(filename: String) -> Data {
     return data
 }
 
-/* in test class */ 
+/* in test class */
 
 var controller: MyController!
 
 func test_instantiation() {
-  // 1 
-  let decoder = JSONDecoder() 
+  // 1
+  let decoder = JSONDecoder()
   let data = stubbedResponse(filename: "PersonStub")
   let apiClient = MockApiClient(response: data)
 
   // 2
   controller = MyController(service: PersonService(apiClient: apiClient))
   // 3
-  let expectation = expectation(description: "received data") 
+  let expectation = expectation(description: "received data")
 
   // 4
   controller.fetchPeople { result in
@@ -414,13 +414,13 @@ func test_instantiation() {
 
  델리게이트를 보유하고 있는 클래스에서 델리게이트를 테스트합니다. 예를 들어 아래와 같은 클래스가 있는 경우.
 
-```
+```swift
 protocol NotifierDelegate: class {
-  func notifierDidUpdate() 
+  func notifierDidUpdate()
 }
 
 class Notifier {
-  weak var delegate: NotifierDelegate? 
+  weak var delegate: NotifierDelegate?
 
   init(delegate: NotifierDelegate) {
     self.delegate = delegate
@@ -430,14 +430,14 @@ class Notifier {
     /* impl */
     delegate?.notifierDidUpdate()
   }
-} 
+}
 ```
 
 
 
 아래와 같은 테스트에서 호출했을 때 델리게이트를 호출하는지 확인하면 됩니다.
 
-```
+```swift
 // 1
 class MockNotifierDelegate: NotifierDelegate {
   var didUpdateWasCalled = false
@@ -447,13 +447,13 @@ class MockNotifierDelegate: NotifierDelegate {
   }
 }
 
-/* in test class */ 
+/* in test class */
 var delegate: MockNotifierDelegate!
 var notifier: Notifier!
 
 override func setUp() {
   super.setUp()
-  delegate = MockNotifierDelegate() 
+  delegate = MockNotifierDelegate()
   notifier = Notifier(delegate: delegate)
 }
 
@@ -469,7 +469,7 @@ func test_update_callsDelegateMethod() {
 
 #### View Models
 
-```
+```swift
 struct CarViewModel {
     private let car: Car
 

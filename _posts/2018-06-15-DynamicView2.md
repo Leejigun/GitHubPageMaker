@@ -43,7 +43,7 @@ author: jglee
 
  하나의 아이템은 2개의 `UILabe`l과 하나의 `UIImageVIew`로 구성됩니다. 그렇다면 다루기 쉽게 이 모든 View를 감싸는 컨테이너 뷰를 만들어 봅시다.
 
-```
+```swift
 UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
 ```
 
@@ -51,7 +51,7 @@ UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
 
  이제 앞에 붙은 원형 색상 마크를 만들어봅시다.
 
-```
+```swift
 UIView *image = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
 CAShapeLayer *circleLayer = [CAShapeLayer layer];
 [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(1, 1, 7, 7)] CGPath]];
@@ -68,7 +68,7 @@ CAShapeLayer *circleLayer = [CAShapeLayer layer];
 
  다음으로 화면에 표시할 텍스트 라벨을 만드는데, 이 때 다국어 지원을 위해 텍스트는 `LanguageManager` 를 만들어 쓰고 있습니다.
 
-```
+```swift
 UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, 100, 30)];
 titleView.text = [LanguageManager get:title alter:@""];
 titleView.font = [titleView.font fontWithSize:14];
@@ -78,7 +78,7 @@ titleView.font = [titleView.font fontWithSize:14];
 
  다음으로 수치가 표시될 라벨을 만드는데, 여기서  
 
-```
+```swift
 UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 100, 30)];
 
 NSMutableAttributedString *valueString =
@@ -109,7 +109,7 @@ countLabel.attributedText = valueString;
 
 그리고 만든 뷰들을 컨테이너 뷰에 넣고 제약을 겁니다. 이 때 앞선 포스트와 마찬가지로 프레임워크를 써서 코드 길이로 조금 줄여보겠습니다.
 
-```
+```swift
 [container addSubview:image];
 [container addSubview:titleView];
 [container addSubview:countLabel];
@@ -134,7 +134,7 @@ countLabel.attributedText = valueString;
 
  그리고 반복해서 만든 뷰들을 이전에 잡아놓았던 뷰들에 차곡 차곡 넣습니다.
 
-```
+```swift
 for(UIView *label in uiViewArray) {
     label.frame = CGRectMake(0, yPosition, width, 30);
     [_detailContainer addSubview:label];

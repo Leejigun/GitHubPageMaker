@@ -51,7 +51,7 @@ author: jglee
 
 4 종류의 셀을 구성할 최상위의 Post 모델은 다음과 같다.
 
-```
+```swift
 final class Post: ListDiffable {
   // 1
   let username: String
@@ -78,7 +78,7 @@ final class Post: ListDiffable {
 
 ListDiffable 프로토콜이 가지고 있는 메소드는 다음과 같다.
 
-```
+```swift
 func diffIdentifier() -> NSObjectProtocol {
   return as NSObjectProtocol
 }
@@ -97,7 +97,7 @@ func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
 
  diffIdentifier을 구현하는 가장 간단한 방법은 그냥 자신의 클래스를 비교하는 것이다. (self as NSObjectProtocol) 하지만 인스타그램 측에서는 Post 중에서 username과 timastamp가 일치하는 Post는 존재할 수 없기 때문에 아래와 같이 처리한다.
 
-```
+```swift
 func diffIdentifier() -> NSObjectProtocol {
 	return (username + timestamp) as NSObjectProtocol
 }
@@ -113,7 +113,7 @@ func diffIdentifier() -> NSObjectProtocol {
 
 권장하는 방법은 다음과 같다.
 
-```
+```swift
 - (BOOL)isEqual:(id)object {
   if (self == object) {
       return YES;
@@ -130,7 +130,7 @@ func diffIdentifier() -> NSObjectProtocol {
 
  그렇다면 Post를 비교할 때에는 어떻게 구현해야 할까? 아쉽게도 여기서는 무조건 true를 반환한다. 왜 무조건 true를 반환할까? 우리는 `diffIdentifier`에서 username과 timeStamp를 통해서 고유한 키 값을 만들었다. 만약 isEqual이 수행된다면 이미 username과 timestamp가 일치하는 값이라 볼 수 있기 때문에 무조건 같은 Post라 볼 수 있다.
 
-```
+```swift
 func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
   return true
 }
@@ -144,7 +144,7 @@ func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
 
  이제 Post 안에 있는 Comment를 만들어보자. Comment.swift 파일을 만든다. Comment 파일을 어떻게 구성해야 할까? 생각해보자 Comment 안에는 username, username의 2개의 String이 존재한다. 이것은 간단하다.
 
-```
+```swift
 class Comment:ListDiffable {
     let username:String
     let text:String
@@ -158,7 +158,7 @@ class Comment:ListDiffable {
 
  자 그럼 ListDiffable의 메소드 `diffIdentifier`  ,`isEqual`은 어떻게 구현해야 할까? Comment를 구분할 수 있게 diffIdentifier 를 구현해야 한다. 단순히 self as NSObjectProtocol을 사용해도 되지만, 인스타그램에서 권장하는 방식으로 앞의 Post에서 사용한 방식을 따르자.
 
-```
+```swift
 func diffIdentifier() -> NSObjectProtocol {
 	return (username + text) as NSObjectProtocol
 }
@@ -166,7 +166,7 @@ func diffIdentifier() -> NSObjectProtocol {
 
  다음으로 `isEqual`은 어떻게 해야 할까? 이 역시 Post와 마찬가지로 username과 text는 변경되지 않는 값으로 `diffIdentifier`에서 고유값으로 사용했다. isEqual이 수행되려면 `diffIdentifier`이 일치한다는 것으로 무조건 같은 객체라 볼 수 있다.
 
-```
+```swift
 func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
 	return true
 }
@@ -180,7 +180,7 @@ func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
 
  `ListBindingSectionController`에 Post 객체 하나를 넣으면 4종류의 View model로 나눠서 관리해 주기 때문에 IGListKit 안에 또 IGListKit을 구현하는 것과 같다.
 
-```
+```swift
 final class UserViewModel: ListDiffable {
 
   let username: String
@@ -208,7 +208,7 @@ final class UserViewModel: ListDiffable {
 
  인스타그램에서 구현한 UserViewModel을 보자. Post에서 첫번째 셀을 구성할 username과 timestamp만으로 뷰모델을 구성했다. 이것까지는 쉽게 감을 잡을 수 있을 것이다. 우리가 눈여겨 봐야 할 것은 하단의 `ListDiffable` 구현이다.
 
-```
+```swift
  func diffIdentifier() -> NSObjectProtocol {
     return "user" as NSObjectProtocol
   }
@@ -224,7 +224,7 @@ final class UserViewModel: ListDiffable {
 
  **ImageViewModel**은 화면에 표시할 하나의 Image url을 가지고 있다. `diffIdentifier` 역시 이 비지니스 로직에서 하나의 Post에서는 하나의 Image만을 가지고 있다고 가정하기 때문에 하드코딩으로 사용할 수 있다. `isEqual` 역시 하나의 아이템이 같은지 다른지 비교하면 간단하다.
 
-```
+```swift
 class ImageViewModel: ListDiffable {
     let imageURL:String
     // MARK: - init
@@ -253,7 +253,7 @@ extension ImageViewModel {
 
  이 역시 Post에서 유일한 셀임으로 하드코딩으로 `diffIdentifier`를 만들고 좋아요 숫자를 `isEqual`에서 비교하면 된다.
 
-```
+```swift
 final class ActionViewModel: ListDiffable {
     let likes: Int
     // MARK: - init
@@ -291,7 +291,7 @@ extension ActionViewModel {
 
 그 작업을 수행하는 SectionController를 만들고 만들어보자. 여기서 주목해야 할 것은 들어오는 데이터 형태를 Post로 제한시킬 수 있다는 점이다.
 
-```
+```swift
 final class PostSectionController: ListBindingSectionController<Post>, ListBindingSectionControllerDataSource {
 
     override init() {
@@ -303,7 +303,7 @@ final class PostSectionController: ListBindingSectionController<Post>, ListBindi
 
 `ListBindingSectionControllerDataSource`에서 구현해야 하는 메소드는 다음과 같다.
 
-```
+```swift
 // MARK: - DataSource
 extension PostSectionController {
 
@@ -330,7 +330,7 @@ extension PostSectionController {
 
  가장 먼저 Post를 viewmodel의 리스트로 쪼개는 `viewModelsFor`를 구현한다.
 
-```
+```swift
 func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
         guard let post = object as? Post else {fatalError()}
         let result:[ListDiffable] = [
@@ -346,7 +346,7 @@ func sectionController(_ sectionController: ListBindingSectionController<ListDif
 
  다음으로 셀의 사이즈를 반환한다. 이 메소드는 셀을 그리기 전에 리스트의 아이템의 숫자만큼 호출된다.
 
-```
+```swift
 func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
         print("call sizeForViewModel")
         guard let width = collectionContext?.containerSize.width else { fatalError() }
@@ -371,7 +371,7 @@ func sectionController(_ sectionController: ListBindingSectionController<ListDif
 
  마지막으로 cell이 화면에 보여지기 전에 cell을 만들어 주는 작업이 필요하다.
 
-```
+```swift
 func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell {
         print("call cellForViewModel")
 
@@ -403,7 +403,7 @@ func sectionController(_ sectionController: ListBindingSectionController<ListDif
 
  먼저 `ImageCell`을 열어보고 `ListBindable`을 추가해보자. `ListBindable`에서 구현해야 할 메소드는 단 하나 `bindViewModel`뿐인데, 이 메소드는 `ListBindingSectionController`에서 뷰모델이 셀과 바인드되면 호출되는 메소드다. 여기에 바인드되면 해야할 작업들을 추가해보자.
 
-```
+```swift
 import UIKit
 import SDWebImage
 import IGListKit
@@ -425,7 +425,7 @@ extension ImageCell {
 
  별로 어려운 내용이 없으니 다른 cell들도 추가해 보자.
 
-```
+```swift
 // UserCell.swift
 extension UserCell {
     func bindViewModel(_ viewModel: Any) {
@@ -461,7 +461,7 @@ extension CommentCell {
 
 이제 완성되었다. 한번 화면에 찍어보자 ViewController로 가서 목 데이터를 만든다.
 
-```
+```swift
 var data = [ListDiffable]()
 lazy var adapter: ListAdapter = { return ListAdapter(updater: ListAdapterUpdater(), viewController: self) }()
 
@@ -487,7 +487,7 @@ override func viewDidLoad() {
 
  마지막으로 짚고 넘어가는 부분은 `ListAdapterDataSource`에서 구현해야하는 메소드다.
 
-```
+```swift
 func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data
     }
@@ -502,7 +502,7 @@ func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
 
  첫번째는 DataSource, 두번째는 data에 맞는 SectionViewController를 만드는 부분이다. 만약에 아이템을 여러개 넣는다면?
 
-```
+```swift
 data.append(Post(
             username: "@janedoe",
             timestamp: "15min",

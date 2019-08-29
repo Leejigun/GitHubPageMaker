@@ -34,7 +34,7 @@ author: jglee
 
 알렉스는 신선한 논리를 다루는 데에 책임이 있는 코드를 재빨리 찾았다.
 
-```
+```swift
 dataProvider.refreshData()
 	.subscribe(
 		onNext: { [weak self] in
@@ -65,7 +65,7 @@ dataProvider.refreshData()
 
  클라이언트의 관점에서 보면 알 수 있듯 가장 바깥쪽에 `Observable<String>` 을 생성하고 내부는 완전히 숨겨집니다.
 
-```
+```swift
 let observable: Observable<String> = Observable.just(42)
 	.filter {$0>30}
 	.map {"\($0)"}
@@ -76,9 +76,9 @@ let observable: Observable<String> = Observable.just(42)
 
  사용되는 연산자들 ( `filter`, `map`, `distinctUnitlChanged` )은 매개 변수로 클로저를 취하고 클로져 내부에서 사용되는 참조 변수들을 저장합니다.
 
- 
 
-```
+
+```swift
 let observable: Observable<String> = Observable.just(42)
 	.filter {$0>30}
 	.map {"\($0)"}
@@ -125,7 +125,7 @@ RxSwift에서 제대로 할당이 해제되지 않으면 메모리 누수가 생
 
 
 
-```
+```swift
 dataProvider.refreshData()
 	.subscribe(
 		onNext: { [weak self] in
@@ -148,13 +148,13 @@ dataProvider.refreshData()
 
  Alex는 또한 버그가 스레딩 문제라고 생각했습니다. 결국 업데이트 메소드가 일부 백그라운드 스레드에서 UI 요소를 호출하면 이상하고 정의되지 않은 동작이 발생할 수 있습니다. 가끔 충돌하거나 때로는 결함이 생길 수 있습니다.
 
- 관찰 가능한 스트림의 특정 부분이 어떤 스레드에서 실행되는지 알아내는 몇 가지 간단한 규칙이 있습니다. 
+ 관찰 가능한 스트림의 특정 부분이 어떤 스레드에서 실행되는지 알아내는 몇 가지 간단한 규칙이 있습니다.
 
 ### How Schedulers Work
 
  먼저 RxSwift에서 스케줄러 개념을 빠르게 새로 고쳐 봅시다. 스케줄러는 특정 컨텍스트에서 작업을 수행하는 다양한 방법에 대한 추상화입니다. 스케줄러는 어디서, 언제, 어떻게 작업이 실행될 것인지를 정의합니다. 컨텍스트를 수행하는 작업의 일부로 많은 것을 볼 수 있습니다. 이것은 기본 스케줄러의 프로토콜입니다.
 
-```
+```swift
 func schedule<StateType>(
 	_ state: StateType,
 	action: @escaping (StateType) !- Disposable
@@ -167,7 +167,7 @@ func schedule<StateType>(
 
 몇 가지 예를 살펴 보겠습니다. 은 `MainScheduler`메인 큐에 작업을 실행하기위한 것입니다 :
 
-```
+```swift
 let mainQueue = DispatchQueue.main
 
 // simplified essence of schedule method
@@ -186,7 +186,7 @@ if DispatchQueue.isMain {
 
  직렬 스케줄러 `DispatchQueue` 에서 수행하는 것은 매우 유사하지만 메인 큐가 아니여도 동작합니다.
 
-```
+```swift
 // internal serial dispatch queue of given properties
 let queue = DispatchQueue.global(qos: qos.qosClass)
 
@@ -200,7 +200,7 @@ queue.async {
 
 `OperationQueue`스케줄러도 매우 비슷하게 사용합니다. 당신은 `BlockOperation` 에 작업을 추가합니다.
 
-```
+```swift
 // operation queue provided by client in the initializer
 let operationQueue: OperationQueue
 
@@ -214,13 +214,13 @@ operationQueue.addOperation(
 
  RxSwift에는 많은 다른 스케줄러가 정의되어 있지만 개념은 같습니다. 예를 들어, 일부는 지연된 방식으로 작업을 실행할 수 있고 다른 작업은 반복적으로 수행 할 수 있습니다.
 
- 
+
 
 ### Operators and Schedulers
 
  스케줄러를 만들 때 전달해야하는 연산자들이 있습니다. 스케줄러로 수행하는 작업은 실제 연산자에 따라 다릅니다.
 
-```
+```swift
 interval(1, scheduler)
 
 delay(2, scheduler)
@@ -230,7 +230,7 @@ throttle(3, scheduler)
 
  다른 연산자는 스케줄러에 독립적입니다. 작업 실행 컨텍스트에 대한 정보를 전달하지 않습니다.
 
-```
+```swift
 map { foo($0) }
 
 flatMap { bar($0) }
@@ -240,7 +240,7 @@ filter { $0 != wanted }
 
  마지막으로, 스케줄러의 동작을 정의하는 연산자가 있습니다.
 
-```
+```swift
 observeOn(scheduler)
 
 subscribeOn(scheduler)
@@ -250,7 +250,7 @@ subscribeOn(scheduler)
 
 예를들어 스케쥴러에 의존하지 않는 관측자로만 구성되는 관찰 대상이 있다고 가정합니다.
 
-```
+```swift
 Observable
 	.just(42)
 	.filter { $0 > 33 }
@@ -263,7 +263,7 @@ Observable
 
  하지만 `observeOn`연산자 를 사용하여 변경할 수 있습니다 . 그것은 어떤 스케줄러가 모든 연산자의 실행을 위해 사용될 것인지를 정의합니다. `observable`은 이벤트 시퀀스이므로 항상 단일 `observeOn`스레드입니다.
 
-```
+```swift
 Observable
 	.just(42)
 	.observeOn(greenScheduler)
@@ -277,9 +277,9 @@ Observable
 
  그를 위해서 또 다른 연산자 `subscribeOn`가있다. 이 연산자는 구독이 실행될 스케줄러를 지정합니다.  모든 이벤트의 생성은 구독 로직의 일부이며 초기 스케줄러 또는 첫 번째 실행 컨텍스트를 정의합니다.
 
- 이벤트 생성은 단일 단계이므로 여러 번 길을 따라 변경하는 것은 의미가 없습니다. 따라서 첫 번째  `subscribeOn`호출 만 중요하며 다른 호출은 무시됩니다. 또한 생성자를 생성 연산자로 명시 적으로 제공하는 커스텀 스케줄러를 사용한다면 스케줄러가 이미 정의되었으므로 늦은 호출이 무시됩니다. 
+ 이벤트 생성은 단일 단계이므로 여러 번 길을 따라 변경하는 것은 의미가 없습니다. 따라서 첫 번째  `subscribeOn`호출 만 중요하며 다른 호출은 무시됩니다. 또한 생성자를 생성 연산자로 명시 적으로 제공하는 커스텀 스케줄러를 사용한다면 스케줄러가 이미 정의되었으므로 늦은 호출이 무시됩니다.
 
-```
+```swift
 Observable
 	.just( 42, scheduler: blueScheduler)			//blueScheduler
 	.observeOn(greenScheduler)						//greenScheduler
@@ -303,7 +303,7 @@ Observable
 
 `observable`은 일련의 이벤트를 생성하며, 각 시퀀스가 유지해야하는 기본적인 요구 사항 집합이 있습니다. 항상 0 개 이상의 `next`이벤트 로 구성되며 시퀀스를 닫는 이벤트, 즉 시퀀스의 마지막 요소는 `completed`또는 중 하나 `error`입니다.
 
-```
+```swift
 .next(data)
 .completed
 .error(error)
@@ -311,7 +311,7 @@ Observable
 
  매우 기본적인 질문 중 하나는 이벤트의 순서가 끝날 것인가하는 것입니다. 그리고 그것이 끝나면 우리는 절대적으로 100 % 확신 할 것이며, 우리는 메모리 관리를 무시할 수 있습니다. 다음은 관찰 가능 항목에 의해 방출 된 완료 또는 오류 이벤트가 있기 때문에 구독이 종료된다는 것을 증명하는 몇 가지 예제 코드입니다.
 
-```
+```swift
 let disposable = observable
 	.subscribe(onNext: { [weak self] in
 		self!?work(on: $0)
@@ -326,9 +326,9 @@ disposable.disposed(by: disposeBag)
 
 
 
- 긴 시퀀스 인 경우 다중 이벤트가 발생한다는 것을 의미하므로 데이터를 사용자에게 푸시하는 관찰 가능한 작업 일 수 있습니다. 그런 다음 한 번만 구독하고 앞으로 적절한 순간에 정보가 제공 될 것으로 기대합니다. 
+ 긴 시퀀스 인 경우 다중 이벤트가 발생한다는 것을 의미하므로 데이터를 사용자에게 푸시하는 관찰 가능한 작업 일 수 있습니다. 그런 다음 한 번만 구독하고 앞으로 적절한 순간에 정보가 제공 될 것으로 기대합니다.
 
-```
+```swift
 let disposeBag = DisposeBag()
 
 // call only once in the object lifetime
@@ -341,7 +341,7 @@ func listenForFreshData() {
 }
 ```
 
- 
+
 
 ## Exposing Communication Protocols
 
@@ -355,7 +355,7 @@ func listenForFreshData() {
 
 예를 들어, 관찰 할 수있는 복잡한 도메인 논리가 있습니다.
 
-```
+```swift
 /*
 Returns an Observable that emits at most three times,
 starting with the first event emitted immediately
@@ -375,7 +375,7 @@ public func thirdTimeLucky() !- Observable<Data>
 
  예를 들어, 다음은 뷰 모델에 대한 데이터를 제공하는 서비스의 일부입니다.
 
-```
+```swift
 final class DataProvider {
 
 private let proxySubject = PublishSubject<Data>()
@@ -411,13 +411,13 @@ func refreshData() !- Observable<Void> {
 
  엄지 손가락의 규칙은 가능한 한 작은 범위에서 관찰 가능을 유지하는 것입니다. 왜냐하면 이벤트의 원인, 보장 및 이벤트의 속성, 이벤트에 의해 생성되는 효과에 대해 추론하는 데 도움이되기 때문입니다.
 
- 
+
 
 ## Conclusion
 
  그동안 Alex는 버그의 출처를 발견하고 수정했습니다! 문제는 `onError`종결에있었습니다. 코드 거리와 매우 밀접하게 관련되어 있습니다. 네트워크 서비스에서 작업 할 때 팀원 중 한 명은 던진 모든 오류가 해당 `ReasonableError`유형과 일치하는지 확인하는 것을 잊었습니다 . 사실 구독 코드에 아무런 문제가 없었습니다.
 
-```
+```swift
 dataProvider.refreshData()
 	.observeOn(MainScheduler.instance)
 	.subscribe(
@@ -432,4 +432,3 @@ dataProvider.refreshData()
 )
 .disposed(by: disposeBag)
 ```
-

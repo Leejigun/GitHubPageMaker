@@ -52,7 +52,7 @@ author: jglee
 
 먼저 `UIView`와 `UILabel`을 만듭니다.
 
-```
+```swift
 /// yPosition = 0
 UIView *firstLabel = [[UIView alloc] initWithFrame:CGRectMake(0, yPosition, scrollViewWidth, 40)];
 UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, scrollViewWidth, 20)];
@@ -64,7 +64,7 @@ UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, scrollViewW
 
 그 다음으로 라벨에 속성값을 셋팅합니다.
 
-```
+```swift
 /// 다국어를 지원하는 앱이라 text를 동적으로 가져옵니다.
 textLabel.text = [LanguageManager get:@"string_report_selfCare_intro" alter:@""];
 textLabel.font = [textLabel.font fontWithSize:11.0];
@@ -76,7 +76,7 @@ textLabel.numberOfLines = 2;
 
 이제 라벨을 UIView에 올립니다.
 
-```
+```swift
 [firstLabel addSubview:textLabel];
 ```
 
@@ -84,7 +84,7 @@ textLabel.numberOfLines = 2;
 
 여기서 이제 제약을 추가해서 UIView에서 라벨이 차지할 위치를 정하게 됩니다.
 
-```
+```swift
 [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(firstLabel.mas_left).offset(20);
         make.right.equalTo(firstLabel.mas_right).offset(20);
@@ -98,7 +98,7 @@ textLabel.numberOfLines = 2;
 
 그리고 UIView를 스크롤뷰에 올립니다.
 
-```
+```swift
 [scroll addSubview:firstLabel];
 yPosition = yPosition + firstLabel.frame.size.height;
 ```

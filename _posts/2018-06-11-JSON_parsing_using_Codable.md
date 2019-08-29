@@ -12,7 +12,7 @@ subclass: 'post tag-getting-started'
 author: jglee
 ---
 
- 
+
 
 이번 포스트에서는 Swift4에서 추가된 **Codable** 프로토콜을 사용해 JSON 데이터를 처리하는 방법을 알아보겠습니다.
 
@@ -30,37 +30,37 @@ author: jglee
 
 Codable을 사용하기 이전에는 JSON 파싱을 위해서 `JSONSerialization` 을 사용했습니다.
 
-```
-do { 
-	if let todoJSON = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any], let todo = Todo(json: todoJSON) { 
-		// created a TODO object 
-		completionHandler(todo, nil) 
-	} else { 
-		// couldn't create a todo object from the JSON 
-		let error = BackendError.objectSerialization(reason: "Couldn't create a todo object from the JSON") 
-		completionHandler(nil, error) 
-	} 
-} catch { 
-	// error trying to convert the data to JSON using JSONSerialization.jsonObject 			completionHandler(nil, error) return 
-}	
+```swift
+do {
+	if let todoJSON = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any], let todo = Todo(json: todoJSON) {
+		// created a TODO object
+		completionHandler(todo, nil)
+	} else {
+		// couldn't create a todo object from the JSON
+		let error = BackendError.objectSerialization(reason: "Couldn't create a todo object from the JSON")
+		completionHandler(nil, error)
+	}
+} catch {
+	// error trying to convert the data to JSON using JSONSerialization.jsonObject 			completionHandler(nil, error) return
+}
 출처: http://kka7.tistory.com/88 [때로는 까칠하게..]
 ```
 
- 살펴보면`JSONSerialization` 을 사용해서 Data를 [String:Any] 형태의 딕셔너리로 만들어 그것을 하나하나 파싱해서 사용했습니다. 이 [String: Any] 데이터를 Todo의 객체로 만들기 위해 Todo 구조체에 하나 하나 파싱하는 생성자를 만들어 추가하는 방법을 사용했었는데, 이 방법을 쓰면 JSON관련 라이브러리를 사용하지 않고도 JSON 데이터를 파싱해서 사용 할 수 있었습니다. 
+ 살펴보면`JSONSerialization` 을 사용해서 Data를 [String:Any] 형태의 딕셔너리로 만들어 그것을 하나하나 파싱해서 사용했습니다. 이 [String: Any] 데이터를 Todo의 객체로 만들기 위해 Todo 구조체에 하나 하나 파싱하는 생성자를 만들어 추가하는 방법을 사용했었는데, 이 방법을 쓰면 JSON관련 라이브러리를 사용하지 않고도 JSON 데이터를 파싱해서 사용 할 수 있었습니다.
 
  하지만, 너무 번거롭고 많은 시간이 소요되기 때문에 단순히 JSON을 파싱하는 용도로 라이브러리를 추가해 사용하는 경우도 많았습니다.
 
  Codable이 추가된 이후에는 이렇게 사용하게 되었습니다.
 
-```
-let decoder = JSONDecoder() 
-do { 
+```swift
+let decoder = JSONDecoder()
+do {
     let todo = try decoder.decode(Todo.self, from: responseData)
-    completionHandler(todo, nil) 
-} catch { 
-    print("error trying to convert data to JSON") 
-    print(error) 
-    completionHandler(nil, error) 
+    completionHandler(todo, nil)
+} catch {
+    print("error trying to convert data to JSON")
+    print(error)
+    completionHandler(nil, error)
 }
 
 출처: http://kka7.tistory.com/88 [때로는 까칠하게..]
@@ -76,14 +76,14 @@ do {
 
 만약, Todo의 배열이 내려온다고 해도 Codable을 추가했으면 똑같이 사용 가능합니다.
 
-```
-let decoder = JSONDecoder() 
-do { 
-    let todos = try decoder.decode([Todo].self, from: responseData) 
-    completionHandler(todos, nil) 
+```swift
+let decoder = JSONDecoder()
+do {
+    let todos = try decoder.decode([Todo].self, from: responseData)
+    completionHandler(todos, nil)
 } catch {
-    print("error trying to convert data to JSON") 
-    print(error) completionHandler(nil, error) 
+    print("error trying to convert data to JSON")
+    print(error) completionHandler(nil, error)
 }
 
 출처: http://kka7.tistory.com/88 [때로는 까칠하게..]
@@ -99,15 +99,15 @@ do {
 
 과거에는 `toJSON` 메소드를 내부에서 따로 만들어서 [String: Any] 로 만들도록 했습니다.
 
-```
-func toJSON() -> [String: Any] { 
-    var json = [String: Any]() 
-    json["title"] = title 
-    json["userId"] = userId 
-    json["completed"] = completed 
-    if let id = id { 
-    	json["id"] = id 
-    } return json 
+```swift
+func toJSON() -> [String: Any] {
+    var json = [String: Any]()
+    json["title"] = title
+    json["userId"] = userId
+    json["completed"] = completed
+    if let id = id {
+    	json["id"] = id
+    } return json
 }
 
 출처: http://kka7.tistory.com/88 [때로는 까칠하게..]
@@ -115,14 +115,14 @@ func toJSON() -> [String: Any] {
 
 하지만, `Codable` 을 수행한다면,  디코더를 사용하는 것처럼 사용하면 됩니다.
 
-```
-let encoder = JSONEncoder() 
-do { 
-    let newTodoAsJSON = try encoder.encode(self) 
-    todosUrlRequest.httpBody = newTodoAsJSON 
-} catch { 
-    print(error) 
-    completionHandler(error) 
+```swift
+let encoder = JSONEncoder()
+do {
+    let newTodoAsJSON = try encoder.encode(self)
+    todosUrlRequest.httpBody = newTodoAsJSON
+} catch {
+    print(error)
+    completionHandler(error)
 }
 
 출처: http://kka7.tistory.com/88 [때로는 까칠하게..]
@@ -134,16 +134,16 @@ do {
 
  JSON 객체 내부가 복잡하게 JSON들로 중첩된 경우도 간단합니다. 내부에 들어가는 JSON 형태가 구조체로 정의되어있고 이 역시 `Codable` 을 사용한다면 자동으로 파싱해줍니다.
 
-```
-struct Address: Codable { 
-    let city: String 
-    let zipcode: String 
-} 
-struct User: Codable { 
-    let id: Int? 
-    let name: String 
-    let email: String 
-    let address: Address 
+```swift
+struct Address: Codable {
+    let city: String
+    let zipcode: String
+}
+struct User: Codable {
+    let id: Int?
+    let name: String
+    let email: String
+    let address: Address
 }
 
 출처: http://kka7.tistory.com/88 [때로는 까칠하게..]
@@ -155,18 +155,18 @@ struct User: Codable {
 
  이제 실제 외부의 데이터를 파싱할 때 종종 경험하는 현상들인데, JSON의 프로퍼티 이름이 사용 언어의 지정어인 경우가 있습니다. 예를 들자면 특정 프로퍼티의 이름이 `id` 일 경우는 상당히 많이 경험했습니다. 이런 경우 Struct 내부에 `enum CodingKeys` 를 선언해주면 자동으로 맵핑되는 기능을 제공하고 있습니다.
 
-```
-struct Todo: Codable { 
-    var displayTitle: String 
-    var serverId: Int? 
-    var userId: Int 
-    var completed: Int 
+```swift
+struct Todo: Codable {
+    var displayTitle: String
+    var serverId: Int?
+    var userId: Int
+    var completed: Int
 
     enum CodingKeys: String, CodingKey {
-        case displayTitle = "title" 
-        case serverId = "id" 
-        case userId 
-        case completed 
+        case displayTitle = "title"
+        case serverId = "id"
+        case userId
+        case completed
     }
 }
 
@@ -181,7 +181,7 @@ struct Todo: Codable {
 
  저는 TwitchAPI를 통해서 데이터를 받아오기 때문에 먼저 Postman으로 API를 찔러서 데이터를 읽어왔습니다. 1개의 데이터만 요청해보겠습니다.
 
-```
+```swift
 {
     "_total": 1549,
     "_links": {
@@ -220,7 +220,7 @@ struct Todo: Codable {
 
  이 정도의 긴 데이터를 만약 `Codable` 없이 처리하려고 한다면 엄청나게 번거롭고 수고스러울 것 같습니다. 이제 제가 짠 구조체를 봅시다.
 
-```
+```swift
 struct GamesStruct: Codable {
     let _total: Int
     let top: [TopGame]
@@ -260,7 +260,7 @@ struct GameInfo: Codable {
 
  제가 ` Codable` 을 사용하는 것을 선호하는 다른 한가지 이유는 Rx를 사용할 때 더욱 가독성이 좋기 때문입니다.
 
-```
+```swift
 provider.rx.request(.getTopGame(param))
     .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
     .retry(3)

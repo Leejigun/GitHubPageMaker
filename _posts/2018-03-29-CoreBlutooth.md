@@ -52,28 +52,28 @@ author: jglee
 
  tableViewController(BluetoothTableViewController)를 만들고 CoreBluetooth 프레임워크를 추가합니다.
 
-```
+```swift
 BluetoothTableViewController.h
 #import <CoreBluetooth/CoreBluetooth.h>
 ```
 
  iOS 기기가 Central 역할을 수행할 수 있도록 관리해줄 CentralManager 객체를 정의합니다.
 
-```
+```swift
 BluetoothTableViewController.h
 @property (strong, nonatomic) CBCentralManager *centralManager;
 ```
 
   추가적으로 `ViewController`가 `CentralManager`의 이벤트를 수행할 수 있도록 `CBCentralManagerDelegate`를 구현해야 합니다.
 
-```
+```swift
 BluetoothTableViewController.h
 @interface BluetoothTableViewController : UITableViewController<UITableViewDelegate,CBCentralManagerDelegate>
 ```
 
  `BluetoothTableViewController.m` 파일로`_centralManager`를 생성하고 이벤트를 처리할 `delegate`로 `BluetoothTableViewController`를 지정합니다. 이제 `centralManger` 를 통해서 블루투스 기능을 사용하고 관리할 수 있게 되었습니다.
 
-```
+```swift
 BluetoothTableViewController.m
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,7 +87,7 @@ BluetoothTableViewController.m
 
 CentralManager를 통해서 디바이스의 블루투스 상태를 확인 할 수 있습니다. 기존의 로직 처리는 아래와 같이 상태가 변경될 때 마다 호출되는 메소드에서 상태값을 체크하는 방식으로 구현했습니다.
 
-```
+```swift
 - (void)centralManagerDidUpdateState:(nonnull CBCentralManager *)central {
     switch (central.state) {
         case CBManagerStateUnknown:
@@ -112,7 +112,7 @@ CentralManager를 통해서 디바이스의 블루투스 상태를 확인 할 �
 
  이제는 블루투스 기능이 꺼져있다면 app을 키면 iOS에서 설정으로 이동할 수 있는 얼럿 박스가 자동으로 표시되기 때문에 이제는 메세지를 무시하고 그냥 스캔하려고 했을 경우에만 처리하는 로직을 넣어주면 됩니다.
 
-```
+```swift
 -(void)startSearch:(id)sender {
     if (_centralManager.state == CBManagerStatePoweredOn){
             NSLog(@"Start Search");
@@ -143,7 +143,7 @@ CentralManager를 통해서 디바이스의 블루투스 상태를 확인 할 �
 
 이 centralManager를 통해서 주변 장치를 Scan해 블루투스 4.0을 지원하는 장비들을 찾을 수 있습니다. 스캔을 할 때에는 파라미터로 서비스를 지정해 주는걸 권장하고 있습니다. 계속해서 무작위 전체 기기를 검색하는 것은 리소스를 많이 소모하게 됩니다.
 
-```
+```swift
 // 이때 Service에 특정 서비스의 UUID를 통해 그 서비스를 지원하는 장치만 찾을 수 있다.
 [_centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"0xFF00"]] options:nil];
 // 혹은 이미 특정 기기의 UUID를 알고 있다면 이 방법으로 특정 기기 정보만을 스캔할 수 있다.
@@ -158,7 +158,7 @@ scan에서 줄 수 있는 옵션은 아래와 같습니다.
 
 Scanning 중 장치를 발견할 때 마다 delegate의 `didDiscoverPeripheral` 메소드가 호출되는데 우리는 발견한 장치들을 table에 보여줄 것이기 때문에 그에 따른 처리가 필요합니다. (TableView를 다루는 방법은 생략합니다. 여기까지 오셨으면 다들 하실 수 있을거라 믿습니다.)
 
-```
+```swift
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
 	//발견한 장치를 logging
     NSLog(@"Discovered %@ at %@", peripheral.name, RSSI);
@@ -182,7 +182,7 @@ Scanning 중 장치를 발견할 때 마다 delegate의 `didDiscoverPeripheral` 
 
  제 경우 비지니스 모델이 인증기 회사와 협업하여 특정 기기에 타겟팅되어 개발했습니다. 그 기기 전용으로 앱을 만들었기 때문에 이름으로 필터링을 했습니다. 그럼에도 혹시 같은 장소에 여러 동일한 기기가 있을 경우를 생각해 선택해서 연결하는 방식을 취했습니다.
 
-```
+```swift
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CBPeripheral *selectedPeripheral = (CBPeripheral*)_peripheralList[indexPath.row];
     NSLog(@"try connect :%@",selectedPeripheral.name);
@@ -199,14 +199,14 @@ Scanning 중 장치를 발견할 때 마다 delegate의 `didDiscoverPeripheral` 
 
  이 커넥션은 조금 특이한데 한번 기기와 커넥션을 시도하면 타임아웃 없이 연결될 때 까지 계속 신호를 전송하게 됩니다. 현재 테스트 하는 기기의 경우 연결까지 20초 정도 시간이 소요되었는데, 연결이 너무 지연되었을 경우데 따른 로직도 추가 할 수 있습니다. 만약, 너무 지연될 경우 연결 신호를 계속 전송하는 자원을 낭비하기 때문에 수동으로 중지 가능하다.
 
-```
+```swift
 // 이 메소드의 경우
 [_centralManager cancelPeripheralConnection:_discoveredPeripheral];
 ```
 
  연결이 완료되면 CentralManager의 delegate에서 `didConnectPeripheral:` 메소드가 호출되고 이후 기기의 정보를 받아오거나 수정 할 수 있게 됩니다.
 
-```
+```swift
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     if(error) {
         NSLog(@"%@", error.debugDescription);
@@ -231,7 +231,7 @@ Scanning 중 장치를 발견할 때 마다 delegate의 `didDiscoverPeripheral` 
 
 Central과 마찬가지로 Peripheral과 관련된 다양한 이벤트들을 처리하기 위해서는 delegate protocol을 준수해야합니다.
 
-```
+```swift
 CheckViewController.h
 @interface CheckViewController : UIViewController<CBPeripheralDelegate>
 
@@ -247,21 +247,21 @@ CheckViewController.m
 
 _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보로 현재는 이렇다할 정보를 담고 있지 않습니다.
 
-```
+```swift
 //이때 서비스의 UUID를 이미 알고있다면 특정 서비스 정보만 호출 가능하다.
 [_selectedPeripheral discoverServices:nil];
 ```
 
 #### 3. 서비스 요청
 
-```
+```swift
 // 이때 특정 서비스의 UUID를 이미 알고 있다면 그 서비스의 정보만 확인 가능하다.
 [_selectedPeripheral discoverServices:@[ [CBUUID UUIDWithString:WSB_SERVICE_UUID]]];
 ```
 
 서비스 정보를 받게되면 `didDiscoverServices`가 호출됩니다.
 
-```
+```swift
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
     if (error != nil) {
         NSLog(@"discoverServices error : peripheral: %@, error: %@",peripheral.name,error.debugDescription);
@@ -279,7 +279,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
 여기서 우리는 FF00에 해당하는 서비스가 제공하는 특성 정보만을 원하기 때문에 필터링을 거친 후 서비스에 대한 특성 정보를 요청한다.
 
-```
+```swift
 [peripheral discoverCharacteristics:nil forService:service];
 ```
 
@@ -289,7 +289,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
 특성이 발견되면 `didDiscoverCharacteristicsForService`메소드가 호출된다. 이 메소드에서 특성들을 구독할 수 있습니다.
 
-```
+```swift
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
     for (CBCharacteristic *charater in service.characteristics) {
         NSLog(@"discovered Characteristic :%@",charater.debugDescription);
@@ -304,7 +304,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
 이 메소드는 2개의 특성을 발견하기 때문에 2번 호출되는데, 어차피 데이터를 보내는 용도로만 사용하는 특성은 구독을 해도 상태값이 변경되지 않도록 막혀 있기 때문에 필터링을 거치지 않았습니다.
 
-```
+```swift
 [_selectedPeripheral setNotifyValue:YES forCharacteristic:charater];
 ```
 
@@ -312,7 +312,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
 이 때 noti를 변경하려고 하면 호출되는 메소드가 있는데 여기서 셋팅이 잘 되었는지 확인 할 수 있습니다. 제 경우는 여기서 노티 셋팅이 바뀌지 않는 특성을 저장하는 필터링을 거치도록 했습니다.
 
-```
+```swift
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     if (characteristic.isNotifying) {
         //정보를 받아오는 케릭터
@@ -330,7 +330,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
 #### 5. 측정 요청 (데이터 보내기)
 
-```
+```swift
 - (IBAction)measure:(UIButton *)sender {
     NSData *request = [WSB onRegisterData];
     if (request != nil){
@@ -344,7 +344,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
  이 때 데이터를 보내는데 사용하는 메소드를 살펴보면.
 
-```
+```swift
 [_selectedPeripheral writeValue:request forCharacteristic:_characteristic type:CBCharacteristicWriteWithoutResponse ];
 ```
 
@@ -354,7 +354,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
 #### 6. 데이터 받기
 
-```
+```swift
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSString *result = [WSB dataParser:characteristic];
     if(result != nil) {
@@ -388,7 +388,7 @@ _selectedPeripheral은 이전의 controller에서 넘겨받아온 기기 정보�
 
  페어링하고 기기를 탐색하는 과정에서 생각보다 시간이 많이 소요되서 로딩뷰를 추가하기로 했습니다. 그냥 로딩뷰로 구글에 검색하니 오픈 소스가 존재해서 추가해 사용했습니다.
 
-```
+```swift
 BluetoothTableViewController.h
 @property (strong, nonatomic) MBProgressHUD *prograss;
 
@@ -399,7 +399,7 @@ _prograss = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 
 탐색 중에는 로딩뷰로 화면을 가려 버리면 유저가 원하는 아이템을 찾았을 때 문제가 있을거 같아서 네트워크 인디게이터로 대체했습니다. 하지만 커넥션은 로딩을 보여줘야 할거 같아서 커넥션을 수행할 때 로딩뷰를 보여주고 didconnection이 호출되면 그때 로딩뷰를 없애는 형식을 취했습니다.
 
-```
+```swift
 -(void)connetSelectedPeriphral {
     [_prograss setLabelText:@"Openit FIDO"];
     [_prograss setDetailsLabelText:@"connecting with device"];
@@ -418,7 +418,7 @@ _prograss = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 
 먼저, 연결을 성공하면 UserDefault에 기기 정보를 저장하도록 합니다.
 
-```
+```swift
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     [self connectedDonePeriphral];
     [OpenitUtils savePeripheral:peripheral];
@@ -435,7 +435,7 @@ OpenitUtils.m
 
 이후에는 저장된 기기 이력이 있다면 사용자에게 그 기기와 연결을 묻습니다.
 
-```
+```swift
 - (void)viewDidLoad {
 if([OpenitUtils isSavedPeripheral]) {
         NSString *uuidString = [OpenitUtils getSavedPeripheralUUIDString];

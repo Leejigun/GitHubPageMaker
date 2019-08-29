@@ -3,6 +3,11 @@ tayga:
   description: Tayga 앱 개발기
   cover: ./assets/images/taygaCover.jpg
 
+swiftUI:
+  name: swiftUI
+  description: swiftUI
+  cover: ./assets/images/swiftUI_cover.png
+
 ios-tip:
   name: ios-tip
   description: iOS development tips

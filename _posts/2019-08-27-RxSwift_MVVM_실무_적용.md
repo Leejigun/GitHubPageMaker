@@ -19,7 +19,7 @@ author: jglee
 
  처음 MVVM 아키텍처에 대해서 여러가지 사용 예제들을 인터넷으로 확인해보니 Protocol을 사용해서 Inputr과 Output을 강제하는 방법을 사용하고 있어서 먼저 프로토콜을 정의했습니다.
 
-
+```swift
      protocol ViewModelProtocol {
         associatedtype Result
         associatedtype ErrorType
@@ -29,12 +29,12 @@ author: jglee
         var output: Output { get }
         init(provider:OpenitProvider<JuvisAPI>)
     }
-
+```
 
  이 프로토콜을 정의하고 뷰 모델에서 실제로 사용할 때에는 다음과 같이 사용했습니다.
  아래 내용은 실제로 제가 외부 프로젝트에서 사용한 장바구니 화면을 수정한 것 입니다.
 
-
+```swift
      class ShoppingBasketViewControllerModel: ViewModelProtocol {
         enum Result {
             case success(Any)
@@ -91,7 +91,7 @@ author: jglee
             bindUI(provider, input: input, output: output)
         }
     }
-
+```
  실제 제가 이번 프로젝트에서 사용한 내용입니다. 상세한 로직은 **requestBasketList , bindUI** 메소드에 있는데, 이번 포스트는 RxSwift와 MVVM에 관한 첫 번째 내용이니 넘어가도록 합니다. **여기서 주의 깊게 봐야 하는 부분은 Input, Output 두 구조체입니다.** MVVM에 익숙하지 않으면 제일 힘든 부분이 Input과 output을 엄격하게 구분해서 구조를 잡는 게 제일 힘들 것입니다.
 
 
@@ -102,17 +102,17 @@ author: jglee
 
  뷰 컨트롤러에서 데이터를 불러올 때 이렇게 사용하고 있습니다.
 
-
+```swift
     # ShoppingBasketViewController
     override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(true)
       viewModel?.input.getBasketList.onNext(())
     }
-
+```
  주로 화면에 들어올 때, 갱신이 필요할 경우 등 전체 갱신이 필요할 경우 사용해주면 됩니다.
 
  다음으로 로직 부분을 살펴봅니다.
-
+```swift
      private func requestBasketList(_ provider: OpenitProvider<JuvisAPI>, input: Input, output: Output) {
             input.getBasketList
                 .do(onNext: { _ in output.isLoading.accept(true)})
@@ -127,13 +127,13 @@ author: jglee
                 .bind(to: output.basketList)
                 .disposed(by: disposeBag)
         }
-
+```
 **input.getBasketList**에 이벤트가 들어오면 **.do(onNext: { _ in output.isLoading.accept(true)})** 에서 로딩 이벤트를 시작합니다.
  불러오기가 끝날 때 쯤에서 **.do(onNext: { _ in output.isLoading.accept(false)})** 에서 로딩 이벤트를 멈춥니다.
  저는 프로젝트 전반에서 이런직으로 로딩 이벤트를 수행해 왔습니다. 지금은 앱의 서비스 모델 DB에서 데이터를 읽어오지만 실제는 API 통신을 수행할 때 로딩을 시작 종료하며 사용하고 있습니다.
  그리고 output에 있는 저 로딩 객체는 ( **let isLoading = BehaviorRelay<Bool>(value: false)** ) 뷰 컨르롤러에서 subscribe해서 데이터가 변경될 때 마다 로딩 액션을 수행하고 있습니다.
 
-
+```swift
      /// Loading
         private func bindLoading() {
             guard let viewModel = viewModel else { return }
@@ -146,14 +146,14 @@ author: jglee
                 }
             }).disposed(by: disposeBag)
         }
-
+```
  그리고 주목해야 할 부분은 DB에서 꺼낸 ShoppingItme 배열을 다른 Rx 객체에 바로 bind해주는 부분입니다.
-
+```swift
      .bind(to: output.basketList)
-
+```
  basketList에 들어가는 데이터는 **bindUI** 메소드에서 다시 UI로 바로 구성되게 되는데 내용은 아래와 같습니다.
 
-
+```swift
     private func bindUI(_ provider: OpenitProvider<JuvisAPI>, input: Input, output: Output) {
 
       input.cellAction
@@ -187,7 +187,7 @@ author: jglee
       }.bind(to: output.totalPrice)
       .disposed(by: disposeBag)
     }
-
+```
  전체 코드를 붙여넣으면 너무 길기 때문에 간단히 보면 Input의 데이터를 통해서 output의 데이터를 만들고 그 데이터를 실제 뷰에서 바인드해서 사용하고 있는 형태입니다.
  Rx에 대해서 이해하고 있으신 분들은 이 부분만 봐도 대부분 이해하셨을거 같습니다. UI 로직부분에서 아이템들을 가공해서 **productPrice, dicsountPrice, deliveryCharge** 를 만들고 그 데이터들을 **.combineLatest** 로 묶어서
 **totalPrice** 를 생성하고 있습니다.

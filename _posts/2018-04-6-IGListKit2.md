@@ -26,7 +26,7 @@ author: jglee
 
 이를 위해서 **ActionCell.swift** 파일을 열어 아래와 같은 프로토콜을 추가합니다.
 
-```
+```swift
 protocol ActionCellDelegate: class {
   func didTapHeart(cell: ActionCell)
 }
@@ -34,13 +34,13 @@ protocol ActionCellDelegate: class {
 
 그리고 ActionCell에 delegate를 추가합니다.
 
-```
+```swift
 weak var delegate: ActionCellDelegate? = nil
 ```
 
 그리고 `awakeFromNib()`을 오버라이드 하고 버튼에 액션을 추가합니다.
 
-```
+```swift
 override func awakeFromNib() {
   super.awakeFromNib()
   likeButton.addTarget(self, action: #selector(ActionCell.onHeart), for: .touchUpInside)
@@ -49,7 +49,7 @@ override func awakeFromNib() {
 
 버튼을 누르면 호출될 메소드 onHeart 를 추가합니다.
 
-```
+```swift
 func onHeart() {
   delegate?.didTapHeart(cell: self)
 }
@@ -63,7 +63,7 @@ func onHeart() {
 
  자 이제 `PostSectionController`에서 셀을 만든 후 delegate를 넘겨주도록 합시다.
 
-```
+```swift
 // PostSectionController.swift
 func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell {
 ...
@@ -89,13 +89,13 @@ extension PostSectionController: ActionCellDelegate {
 
  인스타그램은 mutable locale variable을 사용해 이 문제를 해결했다. 먼저 **PostSectionController.swift** 파일에서 변수를 추가하자.
 
-```
+```swift
 var localLikes: Int? = nil
 ```
 
 그리고 좋아요 버튼을 누르면 이 변수에 1을 추가하자.
 
-```
+```swift
 // MARK: - ActionCellDelegate
 extension PostSectionController: ActionCellDelegate {
     func didTapHeart(cell: ActionCell) {
@@ -112,7 +112,7 @@ extension PostSectionController: ActionCellDelegate {
 
  이제 `viewModelsFor` 에서 `localLikes`를 모델로 넘겨주면서 실제로 데이터를 변경 할 수 있게 되었다.
 
-```
+```swift
 ActionViewModel(likes: localLikes ?? post.likes)
 ```
 
@@ -132,7 +132,7 @@ ActionViewModel(likes: localLikes ?? post.likes)
 
  먼저 `Post`에 좋아요 상태값을 내려주는 변수를 추가하자. 우리가 서버에서 Post 정보를 받아온다면 이 글에 사용자가 좋아요를 했는지 안 했는지 저장하고 있어야 한다. 그래야 비즈니스 로직 상 좋아요 숫자를 조작하는 행위를 막을 수 있다.
 
-```
+```swift
 // Post.swift
 let isClickedLikes:Bool
 // ActionViewModel.swift
@@ -141,7 +141,7 @@ let isClickedLikes:Bool
 
  자 이제 ActionCell까지 데이터가 내려간다. 이제 `SectionController`까지 데이터가 넘어왔다. viewModel에 데이터를 넘겨 주기 전에 아까 `Likes`를 넘겨 주었던 일을 생각해보자. 변경 될 수 없는 데이터인 `Likes`를 넘겨주기 위해서 로컬 변수를 사용했었다. 똑같이 해본다.
 
-```
+```swift
 var localIsClickedLikes:Bool? = nil
 ...
 ActionViewModel(likes: localLikes ?? post.likes)
@@ -149,7 +149,7 @@ ActionViewModel(likes: localLikes ?? post.likes)
 
  그리고 자 이제 클릭 이벤트 쪽으로 내려가자. 클릭 여부를 확인해서 이미 클릭 했는데 이벤트가 오면 숫자를 1 뺴보자.
 
-```
+```swift
 // MARK: - ActionCellDelegate
 extension PostSectionController: ActionCellDelegate {
     func didTapHeart(cell: ActionCell) {

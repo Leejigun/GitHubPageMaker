@@ -52,7 +52,7 @@ author: jglee
 
  우리가 어떻게 특정한 사건의 흐름을 관찰할 수 있는지 봅시다.
 
-```
+```swift
 let (signal, observer) = Signal<String, NoError>.pipe()
 
 signal.observeValues { animal in print( "value: \(animal)") }
@@ -67,7 +67,7 @@ observer.sendNext(value: "🐰")
 
  우리의 반응형 프로그래밍으로 다수의 상태를 합쳐 나가는 방법을 알아봅시다.
 
-```
+```swift
 var loading: Bool
 var userLoggedIn: Bool
 var didShowAlert: Bool
@@ -77,7 +77,7 @@ var didShowAlert: Bool
 
  반응형 프로그래밍을 통해 특정 상태를 관찰할 수 있습니다.
 
-```
+```swift
 var loading =
 reactive(userLoggedIn) &&
 reactive(didShowAlert)
@@ -87,7 +87,7 @@ reactive(didShowAlert)
 
  스트림을 변환하거나 결합하면 복잡성을 줄이고 코드를 단순화하는 데 도움이 될 수 있습니다.
 
-```
+```swift
 let loading = Observable.combineLatest(userLoggedIn, didLoadContent) {
     !($0 && $1)
 }
@@ -110,7 +110,7 @@ didLoadContent.onNext(true)
 
  다른 비동기 작업을 반응적 스트림으로 변환할 수 있습니다. 예를 들어 버튼 클릭 이벤트가 있습니다. 이벤트를 결합할 수도 있고 이러한 작업을 체인으로 묶을 수도 있습니다. 즉, 이러한 작업에 응답하거나 IP작업 방법을 정의하고 적절한 동작을 위해 상태를 유지하기 위해 더 이상 특정 메타 데이터가 필요하지 않습니다. 그것들은 사실상 동일한 스트림이며, 당신은 그것들을 서로 결합할 수 있습니다.
 
-```
+```swift
 let catButton = UIButton(title: "😸")
 let url = URL(string: "http://catfacts-api.appspot.com/api/facts?
 number=1")
@@ -134,7 +134,7 @@ Observable.combineLatest(catButton.rx.tap, catFact) { c, fact in
 
  첫번째 문제는 당신의 호출 스택이 더 이상 당신의 가장 익숙히 사용하던 형태가 아니기 때문에 디버깅 하는데 어려움을 격을 수 있습니다. 최소한 전통적인 필수적인 호출 스택에서 일어났던 것만큼 정확한 이벤트를 알려 줄 수는 없을 것입니다.
 
-```
+```swift
 func logAnimals() {
     let animal = MutableProperty<String>("😸")
     let animalStream = animal.producer.logEvents(identifier: "📋")
@@ -157,7 +157,7 @@ func logAnimals() {
 
  관찰 결과를 사용하여 수동으로 상태를 업데이트하면 반응성을 잃을 수 있습니다. 이미 해당 용도로 반응형 프레임워크를 사용 중인 경우 대신 바인딩을 사용할 수 있습니다.
 
-```
+```swift
 viewModel.title.bind(to: titleLabel)
 ```
 
@@ -167,7 +167,7 @@ viewModel.title.bind(to: titleLabel)
 
  만약, 특정 행동의 사이드 이펙트가 필요하다면 추가하고 제거하기 용이합니다. 여기 코드에서는 제목을 라벨과 바인드하기 전, nil 체크를 하는 로직을 추가한 것 입니다.
 
-```
+```swift
 viewModel.title.map { n -> Bool in
     return n != nil
 }.bind(to: refreshButton.reactive.isEnabled)
@@ -175,7 +175,7 @@ viewModel.title.map { n -> Bool in
 
  다양한 사용 방법들이 존재합니다.
 
-```
+```swift
 viewModel.title.bind(to: titleLabel)
 viewModel.title
   .bidirectionalBind(to: titleTextField.reactive.bnd_text)
@@ -185,7 +185,7 @@ viewModel.title
 
   반응형 프로그래밍의 세번째 어려움으로는 뜨거운 옵져버블과 차가운 옵져버블과 같은 다양한 관측 가능성이 있다. cold의 경우 시그널에 사이드 이펙트를 주입하면 해당 시그널에 새로운 가입자가 생길 때마다 효과가 나타납니다. 이것은 좋습니다. 왜냐하면 그것이 의도한 설계 방식이기 때문입니다. 하지만 여러분은 반드시 구현이 어떻게 되어 있는지 상기해야 합니다. 따라서 꼭 필요한 경우에만 사이드 이펙트를 추가해야 합니다. 예를 들어 앱의 사용 추적 기능을 추가하려면 이벤트 스트림에 사이드 이펙트를 추가하는 것이 좋습니다.
 
-```
+```swift
 let catFact = URLSession.shared.rx.json(url:url!)
   .map( { return "\(parsedCatFact($0))" })
   .do(onNext: { _ in
