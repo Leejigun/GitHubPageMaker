@@ -5,7 +5,7 @@ navigation: True
 title:  "RxSwift MVVM 실무 적용"
 date:   2019-08-27 00:00:01
 cover: assets/images/RxSwift/RxSwift_MVVM_Title.png
-description: RxSwift Deep Cuts 번역
+description: RxSwift MVVM 실무 적용
 tags: [ RxSwift ]
 class: post-template
 subclass: 'post tag-getting-started'
