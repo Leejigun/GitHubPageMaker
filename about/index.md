@@ -30,6 +30,6 @@ Openit에서 iOS 개발자로 근무중인 이지건입니다.
 > - 측정패턴, 자기관리, 목표달성, 코호트 DB를 통한 분포도 개발
 
 > 2018.07 ~ - **쥬비스 iOS 외부 프로젝트**<br>
-> - 쥬비스 협력사로 iOS app 개발 진행
+> - 쥬비스 협력사로 iOS app 개발 진행  
 
 ![명함](https://openit.openclib.com/static/sign/jglee.gif)
