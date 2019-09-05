@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-title: "[Tayga 개발기] (2) - Moay, TwitchAPI를 통해 데이터 불러오기."
+title: "[Tayga 개발기] (2) - Moya, TwitchAPI를 통해 데이터 불러오기."
 date: 2018-06-05 00:00:00
 cover: assets/images/tayga/moya_logo_github.png
 description: Tayga 앱 회고 두번째 Twitch API를 통해 data 가져오기.
