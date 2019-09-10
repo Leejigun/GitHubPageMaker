@@ -68,13 +68,13 @@ author: jglee
 
  상단 네비게이션 바를 그리기 앞서 배경에 파랑색 백그라운드 뷰가 깔려있는 모습을 먼저 고민했다.
  고민하다가 나온 결론은 상단을 스택으로 감싸고 마지막 버튼 부분에서 하단으로 여백을 줘서 파란 부분 전체를 하나의 스택으로 구성하도록 했다.
-
+```swift
     VStack {
     // 컨텐츠
     }.background(Color(red: 51/255,
                        green: 104/255,
                        blue: 252/255))
-
+```
  이제 네비게이션 바를 구현해본다. 네비게이션 바는 왼쪽에 **Wallet** 이라는 타이틀과 오른쪽에 벨 형태의 버튼이 붙어있는 형태다. 오른쪽에 벨 아이콘은 붉은색 배찌가 붙어있어서 클릭하면 배찌가 사라지도록 하려한다.
  보통은 여기에 로직이 붙어있어서 새로운 알람이 있다면 배찌를 키고 알람을 다 확인하면 배찌를 사라지게 하는 형식으로 처리하는데 뒷단이 없기 때문에 다른 로직은 제거한다.
  배찌 역시 직접 그리기도 하지만 내가 했던 대부분의 프로젝트에서는 배찌가 있는 이미지가 따로 있었다. 이번에는 그런 지원이 없기 때문에 그려서 대충 위치에 올리려 한다.
@@ -86,7 +86,7 @@ author: jglee
 
 
  일단 화면에 Wallet 텍스트만 추가해봤다.
-
+```swift
     var body: some View {
       VStack {
         VStack(alignment: .center) {
@@ -101,12 +101,12 @@ author: jglee
       .edgesIgnoringSafeArea(.top)
       .edgesIgnoringSafeArea(.bottom)
     }
-
+```
  그냥 배경에 테이터만 들어간 이상한 형태다. 하지만 컨텐츠 배경에만 파란색이 들어간 목적은 달성했다. 이제 이걸 상단부터 쌓아 내려가본다.
 
 
  HStack으로 감싸고 옆에 버튼을 그려넣었다. 참고로 포스트에서 사용되는 아이콘은 iOS 13부터 추가된 시스템 이미지로 iOS13 SF Symbols 검색하면 여러가지 아이콘들을 쉽게 검색해서 추가할 수 있다.
-
+```swift
     ZStack(alignment: .center) {
       Image(systemName: "bell.fill")
           .resizable()
@@ -119,7 +119,7 @@ author: jglee
           .padding(.top, -10)
           .padding(.trailing, -10)
     }
-
+```
  상단부터 쌓고 싶어서 네비게이션 밑으로 Spacer() 를 넣어봤다. Spacer는 낮은 우선순위로 공간을 확장하는 컨포넌트로 양쪽 끝으로 붙이거나 동일한 간격을 유지하고 싶을 때 사용하면 유용하다.
 
 
@@ -128,19 +128,20 @@ author: jglee
 
 
  Spacer 를 넣었더니 문제가 생겼다. **.edgesIgnoringSafeArea(.top)** 를 사용하니 상단으로 공간이 넘어가 버린것이다. 이를 해결하기 위해서 상단에 적당한 padding을 넣어야 한다.
-
+```swift
     HStack {
     // 타이틀
     // 아이콘
     }
     .padding(.top, UIApplication.shared.statusBarFrame.height)
     .padding(.horizontal, 30)
+```
 ![](https://paper-attachments.dropbox.com/s_199A3E953151944B18DB109B9C152FCE49633CADF171E0396CFB88F9F527F320_1568013240185_image.png)
 
 
  이제 여기에 버튼에 배찌가 나타나고 사라지게 하는 상태값의 적용이 필요하다.
   State 변수를 추가한다. 그리고 알파값에 변수를 바인드해준다.
-
+```swift
     struct MainContentsView: View {
       @State var isNew = false
     ...
@@ -152,11 +153,11 @@ author: jglee
       .opacity(isNew ? 1.0 : 0)
     ...
     }
-
+```
  이제 isNew가 true면 알파값이 1.0이고 false면 알파값이 0이 되서 나타나고 사라지게 된다.
  여기에 이벤트를 클릭 이벤트를 넣어보자.
  클릭 이벤트를 넣는 방법은 2가지가 있다. 일반적으로 사용하는 방법인 Button 뷰로 감싸서 처리하는 방법과 tapAction이라는 모디파이어를 사용해서 액션을 붙여넣는 방법이 있다.
-
+```swift
     // Button
     Button(action: {
       self.isNew.toggle()
@@ -192,7 +193,7 @@ author: jglee
     }.tapAction {
         self.isNew.toggle()
     }
-
+```
   두가지 방법 모두 별 문제 없이 잘 동작한다.
 
 
@@ -200,7 +201,7 @@ author: jglee
 
  하나의 화면이 만들어졌으면 이제 이걸 다른 Struct로 분리해서 처리해보자. Flutter나 Texture를 해보면 알겠지만, 이렇게 코드로 화면을 만드는 방법은 조금만 화면이 복잡해지면 코드는 엄청나게 길어지면서 보기 힘들어진다. 그래서 뷰 하나 하나를 다른 클레스나 구조체로 뽑아내서 관리해줘야 코드 관리가 편하다.
 
-
+```swift
     fileprivate struct HomeNavigationBar: View {
       @Binding var isNew: Bool
       // 네비게이션바
@@ -232,10 +233,10 @@ author: jglee
           }
       }
     }
-
+```
  특이점으로는 **@Binding** 으로 기존에 State에서 Binding으로 변경한 부분이다. 상위에 적용된 State를 그대로 가져다가 사용한다는 의미로 말 그대로 bind 한다. RxSwift를 사용해본 경험이 있다면 bind에 익숙할 것이다. 행위는 다르지만 의미는 비슷하다.
  나머지는 너무 길어지니까 그냥 코드로 보면 결국에는 다음과 같다.
-
+```swift
     struct MainContentsView: View {
 
       @State var isNew = true
@@ -274,7 +275,7 @@ author: jglee
           .edgesIgnoringSafeArea(.bottom)
       }
     }
-
+```
 
 ![See All Off](https://paper-attachments.dropbox.com/s_199A3E953151944B18DB109B9C152FCE49633CADF171E0396CFB88F9F527F320_1568093884967_image.png)
 ![See All On](https://paper-attachments.dropbox.com/s_199A3E953151944B18DB109B9C152FCE49633CADF171E0396CFB88F9F527F320_1568093903451_image.png)
@@ -287,19 +288,19 @@ author: jglee
 
  대충 1차적으로 완성된 화면에서 상태를 나타내는 부분은 다음과 같다.
 
-
+```swift
     @State var isNew = true
     @State var userMoney = "0.00"
     @State var userGrade = "Premium"
     @State var isSeeAll = false
     @State var myCards = [HomeCardInfo(),HomeCardInfo()]
-
+```
  이 부분이 변경되면 화면이 변경된다. 원래기존에 UIKit을 사용할 때부터 RxSwift와 MVVM 패턴을 사용했던 입장에서는 이번 iOS의 변경점이 너무나도 고마웠다. 다른 포스트에서도 말했는데, MVVM에서의 핵심은 Input과 Output을 구분하는 것으로 시작한다고 말씀드렸습니다.
  그래서 제가 사용하던 기존의 MVVM 방식에서는 Input과 Outpu의 구조체를 만들어 물리적(?)으로 input과 output을 완전히 분리해버렸습니다. 간단한 로직이라도 Input을 정의하고 Output을 정의해야 하는 불편함은 있었지만 그럼에도 불구하고 유지보수가 쉽고 코드 자체가 명확했습니다.
  SwiftUI에서 역시 Input과 Output을 분리하고 있습니다. 하지만 앞선 살펴본 isNew의 경우에는 값에 따라 화면을 그리기 때문에 Output이지만 벨 아이콘을 클릭하면 isNew 변수를 toggle하기 때문에 input도 같이 수행하고 있습니다. 아직 엄격하게 분리했다고 볼 수는 없지만 앞으로 수정해 나가야할 부분이라 생각합니다.
 
  제가 만든 뷰 모델은 다음과 같습니다.
-
+```swift
     import Foundation
     import Combine
     import SwiftUI
@@ -333,10 +334,10 @@ author: jglee
         /// 화면에 표시할 카드 모델
         var myCards = [HomeCardInfo(),HomeCardInfo()]
     }
-
+```
  그리고 View를 수정합니다.
 
-
+```swift
     struct MainContentsView: View {
 
         @ObjectBinding var viewModel = MainContentsViewModel()
@@ -371,11 +372,12 @@ author: jglee
             .edgesIgnoringSafeArea(.bottom)
         }
     }
-
+```
  Flutter의 Bloc 패턴과는 조금 달라 보이지만 지향하는 목적 자체는 동일합니다. Flutter의 Bloc에서는 Action과 State를 분리 가지고 Action에 따라서 State를 넘겨주는 형식으로 로직과 화면을 분리했습니다. 하지만 여기서는 ViewModel 자체가 State를 가지고 있기 때문에 Action이 들어와서 ViewModel이 변경되면 뷰 모델을 바라보고 있는 View를 수정해서 화면을 갱신하고 있습니다.
  다음 포스트에서는 지금의 뷰 모델을 조금 더 MVVM 형태에 맞게 수정해보겠습니다.
 
 ##  뷰 코드
+```swift
     /// 상단 네비게이션 뷰
     fileprivate struct HomeNavigationBar: View {
 
@@ -410,6 +412,8 @@ author: jglee
             }
         }
     }
+    ```
+    ```swift
     /// 사용자 정보가 표시되는 뷰
     fileprivate struct HomeUserInfoView: View {
         @Binding var userGrade: String
@@ -442,6 +446,8 @@ author: jglee
             }
         }
     }
+    ```
+    ```swift
     /// 버튼 그룹
     fileprivate struct HomeButtonsView: View {
 
@@ -474,6 +480,8 @@ author: jglee
             }
         }
     }
+    ```
+    ```swift
     /// 카드가 적용된 리스트뷰
     fileprivate struct HomeMyCardList: View {
 
@@ -502,6 +510,8 @@ author: jglee
         }
 
     }
+    ```
+    ```swift
     /// 홈 화면에서 표시되는 카드 정보
     struct HomeCardInfoView: View {
 
@@ -543,3 +553,4 @@ author: jglee
             }
         }
     }
+```
