@@ -24,6 +24,6 @@ rxswift:
   cover: ./assets/images/RxSwift/rxswift_cover.jpg
 
 ml:
-  name: ml
-  description: 머신러닝
+  name: Machine Learning
+  description: 머신러닝, 딥러닝, 케글, 파이썬
   cover: ./assets/images/ml/ml_tag_background.jpg
