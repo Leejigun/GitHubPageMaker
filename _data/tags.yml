@@ -22,3 +22,8 @@ rxswift:
   name: rxswift
   description: RxSwift, MVVM
   cover: ./assets/images/RxSwift/rxswift_cover.jpg
+
+ml:
+  name: ml
+  description: 머신러닝
+  cover: ./assets/images/ml/ml_tag_background.jpg
