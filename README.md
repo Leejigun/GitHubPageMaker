@@ -14,3 +14,8 @@
 # tag 추가
 1. _data/tags에 추가할 것
 2. navigation바에 그 테그를 추가할 것
+
+# 검색 기능 추가
+1. https://blog.hax0r.info/2018-02-18/using-search-from-jekyll/
+2. https://github.com/webhacking/light-Jekyll-search
+3. UI 는 수정이 필요해 보인다.
