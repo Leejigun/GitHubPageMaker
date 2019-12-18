@@ -19,3 +19,7 @@
 1. https://blog.hax0r.info/2018-02-18/using-search-from-jekyll/
 2. https://github.com/webhacking/light-Jekyll-search
 3. UI 는 수정이 필요해 보인다.
+
+# 구글 애널리틱스 추가
+1. https://rextarx.github.io/jekyll/2017/02/03/Applying_Google_Analytics_to_a_blog_using_Jekyll/
+2. https://analytics.google.com/analytics/web/?authuser=0#/a154736789w218333510p208206940/admin/tracking/tracking-code/
