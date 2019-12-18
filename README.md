@@ -23,3 +23,8 @@
 # 구글 애널리틱스 추가
 1. https://rextarx.github.io/jekyll/2017/02/03/Applying_Google_Analytics_to_a_blog_using_Jekyll/
 2. https://analytics.google.com/analytics/web/?authuser=0#/a154736789w218333510p208206940/admin/tracking/tracking-code/
+
+# 구글 검색 추가
+1. https://support.google.com/webmasters/answer/7451184?hl=ko
+2. https://www.google.com/search?client=safari&rls=en&sxsrf=ACYBGNTOdplzxqPut-tnLo3IJqybEvybTg%3A1576641450033&ei=qqP5XZ3gAa-2mAXM8LAQ&q=site%3Aleejigun.github.io&oq=site%3Aleejigun.github.io&gs_l=psy-ab.3...17460.17460..17996...0.0..0.130.321.2j1......0....2j1..gws-wiz.4qlPZdLVNkQ&ved=0ahUKEwid3cSMp77mAhUvG6YKHUw4DAIQ4dUDCAo&uact=5
+3. https://search.google.com/search-console?resource_id=https%3A%2F%2Fleejigun.github.io%2F

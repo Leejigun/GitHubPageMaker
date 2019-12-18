@@ -230,6 +230,7 @@ DEPENDENCIES
   github-pages (~> 168)
   html-proofer
   jekyll (~> 3.6.2)
+  jekyll-seo-tag
   rake (~> 12.3.0)
 
 BUNDLED WITH
