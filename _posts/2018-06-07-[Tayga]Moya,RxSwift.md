@@ -6,7 +6,7 @@ date: 2018-06-07 00:00:00
 cover: assets/images/tayga/ReactiveX_logo.png
 description: RxSwift를 사용해 비동기 데이터 처리.
 navigation: True
-tags: [ tayga ]
+tags: [ project ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

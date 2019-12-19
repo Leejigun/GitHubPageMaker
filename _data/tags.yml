@@ -1,6 +1,6 @@
-tayga:
-  name: tayga
-  description: Tayga 앱 개발기
+project:
+  name: project
+  description: 개인 프로젝트
   cover: ./assets/images/taygaCover.jpg
 
 swiftui:
@@ -17,6 +17,11 @@ tdd:
   name: tdd
   description: test driven development
   cover: ./assets/images/tdd/tdd_cover.png
+
+watchos:
+  name: watchos
+  description: Apple WatchOS development
+  cover: ./assets/images/watchOS/watchOS_Cover.png
 
 rxswift:
   name: rxswift

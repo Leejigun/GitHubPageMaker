@@ -7,7 +7,7 @@ cover: assets/images/tayga/retro_image-cutout.png
 description: Tayga 앱 회고 첫번째 login과 version check.
 
 navigation: True
-tags: [ tayga ]
+tags: [ project ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

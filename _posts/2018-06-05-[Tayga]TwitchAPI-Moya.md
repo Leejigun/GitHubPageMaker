@@ -6,7 +6,7 @@ date: 2018-06-05 00:00:00
 cover: assets/images/tayga/moya_logo_github.png
 description: Tayga 앱 회고 두번째 Twitch API를 통해 data 가져오기.
 navigation: True
-tags: [ tayga ]
+tags: [ project ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

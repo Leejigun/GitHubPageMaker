@@ -6,7 +6,7 @@ title:  "Edit Breakpoints in Xcode (번역)"
 date:   2018-07-02 00:00:02
 cover: assets/images/tdd/breakPoint.png
 description: Edit Breakpoints in Xcode
-tags: [ TDD ]
+tags: [ TDD, ios tip ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
