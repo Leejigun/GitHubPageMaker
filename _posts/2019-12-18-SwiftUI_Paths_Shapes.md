@@ -6,7 +6,7 @@ title:  "SwiftUI - Paths와 Shapes"
 date:   2019-12-18 17:58:00
 cover: assets/images/SwiftUI/2019_12_18_Paths_Shpaes/background.png
 description: SwiftUI
-tags: [ swiftui, ios tip ]
+tags: [ swiftui, ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

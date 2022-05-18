@@ -6,7 +6,7 @@ title:  "DI(의존성 주입) using Swinject"
 date:   2020-04-25 13:02:00
 cover: assets/images/ios_tips/Swinject.png
 description: DI(의존성 주입) using Swinject
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

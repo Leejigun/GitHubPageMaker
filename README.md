@@ -15,6 +15,8 @@
 # tag 추가
 1. _data/tags에 추가할 것
 2. navigation바에 그 테그를 추가할 것
+   1. _includes/navigation.html
+   2. href="{{site.baseurl}}tag/ios/" 에서 ios 부분이 포스트의 tag 값이다.
 
 # 검색 기능 추가
 1. https://blog.hax0r.info/2018-02-18/using-search-from-jekyll/

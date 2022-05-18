@@ -6,7 +6,7 @@ title:  "[Programmatically Views](2) - 코드를 이용한 뷰 만들기 활용"
 date:   2018-06-14 00:00:00
 cover: assets/images/snapkit.jpeg
 description: masonry 라이브러리를 사용해 동적으로 뷰를 만들어 봅시다.
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

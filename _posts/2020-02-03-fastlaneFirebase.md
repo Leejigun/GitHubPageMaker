@@ -6,7 +6,7 @@ title:  "iOS fastlane - Fabric, Firebase"
 date:   2020-01-23 00:00:01
 cover: assets/images/ios_tips/2020-02-03-iOS_fastlane_Fabric_Firebase/fastlane_background.png
 description: iOS fastlane - Fabric, Firebase
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

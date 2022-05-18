@@ -6,7 +6,7 @@ title:  "HealthKit - Steps Counter"
 date:   2019-09-04 00:00:01
 cover: assets/images/ios_tips/healthkit.png
 description: HealthKit - Steps Counter
-tags: [ ios tip  ]
+tags: [ ios  ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

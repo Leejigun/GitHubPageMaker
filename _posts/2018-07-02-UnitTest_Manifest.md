@@ -6,7 +6,7 @@ title:  "The iOS Testing Manifesto (번역)"
 date:   2018-07-02 00:00:01
 cover: assets/images/tdd/tdd_cover.png
 description: The iOS Testing Manifesto
-tags: [ TDD, ios tip ]
+tags: [ TDD, ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

@@ -6,7 +6,7 @@ title:  "IGListkit + Texture 적용"
 date:   2019-08-29 00:00:01
 cover: assets/images/ios_tips/iglistkit_with_texture.jpg
 description: 텍스쳐와 IGlistkit을 함께 사용 방법
-tags: [ ios tip  ]
+tags: [ ios  ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

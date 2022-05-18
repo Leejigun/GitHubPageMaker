@@ -6,7 +6,7 @@ title:  "Xib로 UIViewController 만지기"
 date:   2018-06-20 00:00:00
 cover: assets/images/XibUIViewController/banner.png
 description: UIViewController를 xib 파일로 따로 만들어 관리해 봅시다.
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

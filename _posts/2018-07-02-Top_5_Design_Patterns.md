@@ -6,7 +6,7 @@ title:  "Top 5 스위프트 디자인 패턴 (번역)"
 date:   2018-07-02 00:00:00
 cover: assets/images/top_5_design_patterns.png
 description: 스위프트에서 가장 많이 사용하는 5가지 디자인 패턴.
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

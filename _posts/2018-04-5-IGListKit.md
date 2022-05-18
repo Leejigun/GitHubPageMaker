@@ -6,7 +6,7 @@ title:  "IGListKit 가이드(1)- 모델 바인딩"
 date:   2018-04-05 00:00:00
 cover: assets/images/IGListKit/profile.png
 description: 인스타그램에서 공개한 라이브러리인 IGListKit을 소개하고 개념을 설명하고자 합니다.
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

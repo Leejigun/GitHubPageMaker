@@ -6,7 +6,7 @@ title:  "Codable을 사용한 JSON 데이터 파싱"
 date:   2018-06-11 00:00:00
 cover: assets/images/Swift-JSON-Encoding.jpg
 description: 인스타그램에서 공개한 라이브러리인 IGListKit을 소개하고 개념을 설명하고자 합니다.
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee

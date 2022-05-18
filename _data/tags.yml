@@ -8,8 +8,8 @@ swiftui:
   description: SwiftUI 기술 탐방
   cover: ./assets/images/swiftUI_cover.png
 
-ios-tip:
-  name: ios-tip
+ios:
+  name: iOS
   description: iOS development tips
   cover: ./assets/images/iosTipCover.jpeg
 

@@ -7,7 +7,7 @@ cover: assets/images/IGListKit/profile.png
 description: 1편에 이어서 이번에는 각각의 독립된 셀들의 이벤트를 관리하고 특정 셀을 갱신하는 방법에 대해서 알아보려 합니다.
 
 navigation: True
-tags: [ ios tip ]
+tags: [ ios ]
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
