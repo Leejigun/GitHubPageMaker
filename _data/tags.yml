@@ -37,3 +37,8 @@ cs:
   name: CS
   description: 자료구조, OS, 알고리즘 등
   cover: ./assets/images/CS/Computer-Science.png
+
+flutter:
+  name: flutter
+  description: flutter, dart
+  cover: ./assets/images/flutter/flutter_tag_image.webp
