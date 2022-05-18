@@ -32,3 +32,8 @@ ml:
   name: Machine Learning
   description: 머신러닝, 딥러닝, 케글, 파이썬
   cover: ./assets/images/ml/ml_tag_background.jpg
+
+cs:
+  name: CS
+  description: 자료구조, OS, 알고리즘 등
+  cover: ./assets/images/CS/Computer-Science.png
