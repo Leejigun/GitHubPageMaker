@@ -4,7 +4,7 @@ current: post
 navigation: True
 title:  "HealthKit - Steps Counter"
 date:   2019-09-04 00:00:01
-cover: assets/images/ios_tips/healthkit.png
+cover: assets/images/ios/healthkit.png
 description: HealthKit - Steps Counter
 tags: [ ios  ]
 class: post-template

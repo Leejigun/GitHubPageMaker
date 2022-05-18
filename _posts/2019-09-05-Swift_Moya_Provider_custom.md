@@ -4,7 +4,7 @@ current: post
 navigation: True
 title:  "Swift Moya Provider 커스텀"
 date:   2019-09-05 00:00:01
-cover: assets/images/ios_tips/moya.png
+cover: assets/images/ios/moya.png
 description: Swift Moya Provider 커스텀
 tags: [ ios  ]
 class: post-template

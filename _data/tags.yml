@@ -11,7 +11,7 @@ swiftui:
 ios:
   name: iOS
   description: iOS development tips
-  cover: ./assets/images/iosTipCover.jpeg
+  cover: ./assets/images/ios/ios_tag_image.jpg
 
 tdd:
   name: tdd

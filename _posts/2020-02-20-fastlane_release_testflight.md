@@ -4,7 +4,7 @@ current: post
 navigation: True
 title:  "fastlane - release, testflight"
 date:   2020-02-20 00:00:01
-cover: assets/images/ios_tips/fastlane_background.png
+cover: assets/images/ios/fastlane_background.png
 description: fastlane - release, testflight
 tags: [ ios ]
 class: post-template

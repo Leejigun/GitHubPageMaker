@@ -4,7 +4,7 @@ current: post
 navigation: True
 title:  "iOS fastlane - Fabric, Firebase"
 date:   2020-01-23 00:00:01
-cover: assets/images/ios_tips/2020-02-03-iOS_fastlane_Fabric_Firebase/fastlane_background.png
+cover: assets/images/ios/2020-02-03-iOS_fastlane_Fabric_Firebase/fastlane_background.png
 description: iOS fastlane - Fabric, Firebase
 tags: [ ios ]
 class: post-template
@@ -27,7 +27,7 @@ author: jglee
 
  첫번째 테스트와 스크린샷 기능을 제외하고 베타 빌드와 스토어 업로드 기능을 사용해 CI / CD 도입하려 한다. 기존에도 fabric을 통한 beta 배포는 진행하고 있었지만, xCode에서 아카이빙을 하고 fabric앱을 이용해 배포하고 있었다.
 
-![iOS%20fastlane%20Fabric%20Firebase/Untitled.png](assets/images/ios_tips/2020-02-03-iOS_fastlane_Fabric_Firebase/Untitled.png)
+![iOS%20fastlane%20Fabric%20Firebase/Untitled.png](assets/images/ios/2020-02-03-iOS_fastlane_Fabric_Firebase/Untitled.png)
 
  Xcode에서 인증서를 설정하고 아카이빙 후 fabric앱을 통해 배포하는 일련의 과정을 통해서 beta 배포를 진행했는데, 앞서 말한 것처럼 이제 이런 행위를 하는데 너무 복잡해졌고 신경 써야 할 일이 많다. fastlane은 이제는 많이 알려져 콘퍼런스에도 자주 등장하고 블로그에도 많이 소개되어있다. 예전에도 도입을 건의했는데 받아들여지지 않았다. 기존에 사람이 할 수 있는 일이라 새로운 기술을 도입하는데 소극적인 태도를 보였었다. fastlane에 대해서 인터넷에 찾아보면 소개하는 블로그나 튜토리얼 정도를 진행하는 블로그는 많이 있지만 진짜로 현업에서 쓰는 내용에 대해서는 한국어 블로그에는 거의 없다. 나와 같은 이유일 거 같다.
 
