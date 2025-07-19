@@ -2,6 +2,19 @@
  
 * https://jekyllrb-ko.github.io/docs/posts/
 
+# 노션 포스트 자동 변환
+1. 노션에서 마크다운으로 전체 페이지를 다운로드합니다. (하위 페이지 포함)
+2. 다운로드한 압축 파일의 압축을 해제합니다.
+3. 생성된 폴더를 이 프로젝트의 `origin` 폴더로 이동시킵니다.
+4. 터미널에서 `python3 script.py` 명령어를 실행합니다.
+5. 스크립트가 자동으로 다음 작업을 수행합니다.
+    - `_posts` 폴더에 Jekyll 형식의 마크다운 파일 생성
+    - `assets/images` 폴더에 이미지 파일 복사 및 경로 수정
+    - 처리가 완료된 원본 폴더는 `archive` 폴더로 이동
+6. `bundle exec jekyll serve`로 로컬에서 변경 사항을 확인합니다.
+
+---
+
 1. bundle install로 새로 생성
     * 권한이 없다면 sudo로
 2. ouput에 있는 것을 업로드
