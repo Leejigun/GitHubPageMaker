@@ -3,56 +3,12 @@ layout: post
 current: post
 navigation: True
 title: "Thinking in SwiftUI - 3장 Layout"
-date: 2025-07-19 17:26:26
+date: 2025-06-04 18:16:50
+cover: 
 tags: ['uncategorized']
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
----
-# Thinking in SwiftUI - 3장 Layout
-
-
-SwiftUI의 레이아웃 알고리즘은 간단합니다. 상위 뷰는 하위 뷰에 크기를 제안하고, 하위 뷰는 그 제안에 따라 자신의 크기를 결정 후, 이 크기를 상위 뷰에 보고합니다. 그 다음 상위 뷰는 이를 자신의 좌표계 내에 배치합니다. 본질적으로, 레이아웃 프로세스의 목표는 각 뷰에 위치와 크기를 제공하는 것입니다.
-
-가장 먼저 염두에 두어야 할 점은 SwiftUI의 레이아웃 알고리즘이 뷰 트리를 따라 **하향식으로 진행**된다는 것입니다. 그러므로 뷰 빌더 코드에 의해 생성된 뷰 트리를 이해하는 것이 중요합니다
-
-( 이에 대한 자세한 내용은 뷰 트리 장을 참조하세요 ). 
-
-실제 뷰 트리에 레이아웃 알고리즘을 적용하는 방법을 더 잘 이해하기 위해 예제를 살펴보겠습니다.
-
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled.png)
-
-이 예에서 VStack은 루트 뷰이므로 안전 화면 영역을 제안된 크기로 받게 됩니다. 자체 크기를 결정하기 위해 스택은 먼저 하위 뷰에 크기를 재귀적으로 제안합니다.
-
- 이미지는 지구본 기호의 크기를 기준으로 크기를 보고하고, 텍스트는 제안된 크기와 렌더링해야 하는 문자열을 기준으로 크기를 보고합니다. 이미지와 텍스트가 크기를 정확히 결정하는 방법에 대해 자세히 설명하겠습니다(크기는 나중에). 
-
-이제 스택은 두 개의 하위 뷰를 서로 아래에 배치하여 둘 사이에 기본 간격을 삽입합니다. 스택은 하위 뷰 프레임의 합집합 크기로 자체 크기를 계산하고 이를 다시 창에 보고합니다.
-
-1. 상위 뷰는 하위 뷰에 크기를 제안합니다.
-2. 하위 뷰는 이 제안을 기반으로 자신의 크기를 결정하며, 자신의 하위 뷰가 있는 경우 1단계부터 다시 시작합니다.
-3. 하위 뷰는 결정한 크기를 상위 뷰에 보고합니다.
-4. 상위 뷰는 보고받은 크기에 따라 하위 뷰를 배치합니다.
-
-> 3단계에서 하위 뷰에 의해 보고된 크기는 하위 뷰의 최종 크기입니다. 상위 뷰는 이 크기를 일방적으로 변경할 수 없습니다. 상위 뷰는 2단계로 돌아가 또 다른 크기 제안을 할 수 있지만, 결국 하위 뷰는 자신에게 적합한 크기를 선택하여 결정합니다.
-> 
-
-자세한 순서를 다시 보면 아래와 같습니다.
-
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 1.png)
-
-이 예시에서는 safe area 가 320 480인 창이 있다고 가정합니다.
-
-1. 시스템은 배경에 320 480 사이즈를 제안합니다.
-2. 배경은 기본 하위 뷰에 동일한 320 480 사이즈를 제안합니다.
-3. 패딩은 각 가장자리에서 10포인트를 뺀 300 460 사이즈를 텍스트에 제안합니다.
-4. 텍스트는 그 크기를 51 17로 보고합니다.
-5. 패딩은 각 가장자리에 10포인트를 추가하여, 크기를 71 37로 보고합니다.
-6. 배경은 보조 하위 뷰(색상)에 패딩된 텍스트의 크기인 71 37을 제안합니다.
-7. 색상은 제안된 71 37 사이즈를 수용하고 그대로 보고합니다.
-8. 배경은 기본 하위 뷰의 크기인 71 37을 보고합니다.
-
-## **Leaf Views**
-
 ---
 
 ### Text
@@ -63,7 +19,7 @@ SwiftUI의 레이아웃 알고리즘은 간단합니다. 상위 뷰는 하위 �
 
 다음은 Text("Hello, World!")가 제안된 크기에 따라 어떻게 렌더링되는지에 대한 몇 가지 예입니다. 점선 사각형은 제안된 크기를 나타내고, 실선 사각형은 반환된 크기를 나타냅니다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 2.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 2.png)
 
 → `.lineLimit(_ number:)`를 사용하면 제안된 수직 공간에 관계없이 렌더링할 최대 라인 수를 지정할 수 있습니다. nil을 지정하면 줄 제한이 없음을 의미합니다.
 
@@ -75,13 +31,13 @@ SwiftUI의 레이아웃 알고리즘은 간단합니다. 상위 뷰는 하위 �
 
 만약, fixedSize()를 Text에 적용시키면, 제안과 다른 결과를 보여준다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 3.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 3.png)
 
 ### **Shapes**
 
 대부분의 기본 제공 모양(**Rectangle**, **RoundedRectangle**, **Capsule** 및 **Ellipse**)은 0부터 무한대까지 제안된 크기를 수용하고 사용 가능한 공간을 채웁 니다. **원은 예외입니다.** 제안된 크기에 맞춰지고 원의 실제 크기를 다시 보고합니다. 모양에 nil을 제안하는 경우(즉, .fixedSize로 래핑하는 경우) 기본 크기는 10 10입니다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 4.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 4.png)
 
 ## **Colors**
 
@@ -119,11 +75,11 @@ ViewModifier는 항상 다른 레이어 내부에 기존 뷰를 래핑합니다.
 - 유연하게 지정
     - 유연하게 frame 값을 설정한 경우 2번 범위를 정하게 됩니다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 5.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 5.png)
 
 만약 다음과 같이 설정한 경우 320 480 화면에서 렌더링될 때
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 6.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 6.png)
 
 1. 시스템은 패딩을 320, 480으로 제안합니다.
 
@@ -158,7 +114,7 @@ Color.secondary
 	.aspectRatio(4/3, contentMode: .fit)
 ```
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 7.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 7.png)
 
 aspectRatio의 일반적으로 이미지에 사용합니다. 이미지에 .resizable() 을 붙이면 사이즈에 맞게 이미지가 늘어나거나 줄어드는데, 이미지가 깨지지 않도록 aspectRatio 를 사용해 화면 사이즈에 맞춰 이미지 사이즈를 조절할 수 있습니다.
 
@@ -168,7 +124,7 @@ aspectRatio modifier는 하위 뷰의 이상적인 크기를 제안을 통해 �
 
 만약, 이미지를 사용했을 때 이미지의 사이즈가 100:30 이라고 가정하고, 전체 사이즈가 200:200 이면, 아래와 같은 절차를 따라 사이즈를 설정합니다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 8.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 8.png)
 
 1. AspectRatio의 크기는 200x200으로 제안을 내려보냅니다.
 
@@ -190,7 +146,7 @@ aspectRatio modifier는 하위 뷰의 이상적인 크기를 제안을 통해 �
 
 Overlay와 Background는 SwiftUI에서 가장 유용한 수정자 중 하나입니다. 레이아웃 측면에서는 정확히 동일한 방식으로 작동합니다. 유일한 차이점은 Overlay는 기본 View 위에 보조 View를 그리는 반면, Background는 기본 View 뒤에 보조 View를 그리는 것입니다. 예를 들어, 일부 텍스트 뒤에 배경을 그리려면 다음과 같이 할 수 있습니다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 9.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 9.png)
 
 Background와 overlay는 기본 하위 View의 레이아웃에 영향을 미치지 않습니다. 보고된 overlay 또는 background의 크기는 항상 기본 하위 View의 보고된 크기입니다.
 
@@ -210,7 +166,7 @@ HStack(spacing: 0) {
 }
 ```
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 10.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 10.png)
 
 1. 큰 크기를 제공한 케이스 (150x50)
     1. 모두 충분한 크기를 제공받았지만, Text의 경우에는 텍스트가 들어간 경우의 사이즈가 이상적인 상한선 크기로 잡을 수 있다.
@@ -221,7 +177,7 @@ HStack(spacing: 0) {
     1. 이 경우 사이즈를 설정할 수 없기 때문에, Text가 Container의 제안을 무시하고 이상적인 사이즈로 표시해버립니다.
     2. 대안은 .layoutPriority modifier를 적용해 내부 View 사이에 우선순위를 제공하는 것 입니다.
         
-        ![Untitled](/assets/images/uncategorized/thinking/3/Untitled 11.png)
+        ![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 11.png)
         
 
 ### ZStack
@@ -280,7 +236,7 @@ List와 동일하게 View가 보여질 때 업데이트 한다.
 
 LazyVGrid와 LazyHGrid는 모두 동일한 기본 알고리즘을 사용하여 열이나 행의 크기를 계산하므로 이 섹션 에서는 LazyVGrid에 중점을 둘 것입니다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 12.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 12.png)
 
 그리드는 iOS 16에서 추가되었고, 17 이상에서도 아직 버그가 많기 때문에 짧게 다루고 넘어간다. 
 
@@ -303,22 +259,22 @@ Text("Hello")
 	.frame(width: 100, height: 100) // 기본값이 .center
 ```
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 13.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 13.png)
 
 ```swift
 Text("Hello")
 	.frame(width: 100, height: 100, alignment: .bottomTrailing)
 ```
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 14.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 14.png)
 
 정렬 가이드
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 15.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 15.png)
 
 ZStack 역시 기본값은 .center라 아래의 경우 가운데에 쌓이게 된다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 16.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 16.png)
 
 ### 정렬 가이드 수정
 
@@ -336,7 +292,7 @@ image의 .firstTextBaseline을 줄여서 Image 가 firstTextBaseline으로 정�
 
 이렇게 수정한 이미지를 적용하면 다음과 같이 가이드라인이 변경된다.
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 17.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 17.png)
 
 하지만 firstTextBaseline 을 수정했기 때문에 center로 설정하면 바뀌는게 없다.
 
@@ -352,4 +308,4 @@ extension View {
 }
 ```
 
-![Untitled](/assets/images/uncategorized/thinking/3/Untitled 18.png)
+![Untitled](/assets/images/uncategorized/2025-07-19-Thinking-in-SwiftUI---3장-Layout/Untitled 18.png)

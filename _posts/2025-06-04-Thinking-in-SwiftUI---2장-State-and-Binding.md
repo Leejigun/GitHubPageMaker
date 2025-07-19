@@ -3,36 +3,12 @@ layout: post
 current: post
 navigation: True
 title: "Thinking in SwiftUI - 2장 State and Binding"
-date: 2025-07-19 17:26:26
-tags: ['SwiftUI', 'iOS']
+date: 2025-06-04 18:16:40
+cover: 
+tags: ['swiftui', 'ios']
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
----
-# Thinking in SwiftUI - 2장 State and Binding
-
-
-이전 장에서 SwiftUI code가 **View tree**라는 청사진(블루프린트) 로 구성되는 방법과 영구 **Render tree**로 변환되는 방법에 대해서 알아보았습니다. 이번 장에서는 상태 기반으로 View tree를 구성하고 Render tree를 업데이트 하는 방법을 살펴봅니다.
-
-일반적으로 뷰의 업데이트 주기는 다음과 같습니다.
-
-1. 상태를 기반으로 View Tree가 구성됩니다.
-2. 현재 View Tree를 기반으로 Render Tree가 노드를 생성, 제거, 업데이트 합니다.
-3. 이벤트가 발생해 상태가 변경됩니다.
-4. 1번부터 3번까지 반복합니다.
-
-SwiftUI가 상태를 지속적으로 관찰하고 있기 때문에 언제 View tree가 다시 생성되는지, Render tree가 업데이트 되는지, 뷰의 무엇을 업데이트 해야 하는지 걱정할 필요가 없습니다. 다만, 너무 지나치게 광범위한 View 업데이트는 성능 이슈가 발생할 수 있고, 이번 장의 뒷 부분에서 다시 알아보겠습니다.
-
-SwiftUI의 핵심이라고 할 수 있는 **Property Wrapper**에 대한 내용입니다.
-
-```
-프로퍼티 래퍼는 속성에 적용되는 래퍼(Wrapper)로, 속성의 값에 추가적인 로직을 적용하거나, 값이 변경될 때 다른 동작을 수행할 수 있도록 해준다.
-```
-
-- **@State, @Binding, @StateObject, @ObservedObject, @EnvironmentObject** 등
-
-## **Data Flow Through SwiftUI**
-
 ---
 
 - [https://wlaxhrl.tistory.com/91](https://wlaxhrl.tistory.com/91)
@@ -51,7 +27,7 @@ SwiftUI의 핵심이라고 할 수 있는 **Property Wrapper**에 대한 내용�
 - 뷰의 로컬 데이터 (내부 프로퍼티)
 - 뷰에서 소유되고 관리되어야 하는 데이터 (ex. 텍스트필드, 토글버튼 등)
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled.png)
 
 Counter 예시를 살펴보면, 버튼을 누를 때마다 상태값이 변경되고 화면이 다시 그려집니다. 만약 버튼의 라벨에 상태값을 바인딩하지 않았다면, SwiftUI는 업데이트할 필요가 없다는 것을 인지하고 화면을 다시 그리지 않습니다.
 
@@ -61,19 +37,19 @@ Counter 예시를 살펴보면, 버튼을 누를 때마다 상태값이 변경�
 
 1. Counter 구조체가 처음 생성되면, View tree는 만들어지지만 아직 Render tree에 노드가 존재하지 않습니다. State라는 PropertyWrapper 역시 초기값을 할당하고 있지만, 아직 아무것도 바인딩하지 않았기 떄문에 View는 비어있습니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 1.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 1.png)
 
 1. SwiftUI는 Render tree에 노드를 생성하면서 State를 할당합니다. 이제 PropertyWrapper 의 메모리는 랜더 노드를 가리키게 됩니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 2.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 2.png)
 
 1. View의 body 부분이 실행되고, `Button`이 생성됩니다. 이제 state 값은 랜더 노드를 가리키고 있기 때문에 `Button` 의 label 값은 랜더 노드에 저장된 값을 사용합니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 3.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 3.png)
 
 1. 마지막으로 노드의 값을 읽어 값이 설정된 view body 부분을 랜더링해 실제 UI를 만듭니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 4.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 4.png)
 
 ## 이벤트 발생 3단계
 
@@ -99,7 +75,7 @@ Counter 예시를 살펴보면, 버튼을 누를 때마다 상태값이 변경�
 
 둘 다 객체의 수명과 관련이 있습니다. 외부에서 수명이 관리되는 객체의 경우 @State를 사용하지 않는다는 것 입니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 5.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 5.png)
 
 만약, 위와 같이 모델을 외부에서 전달받는 경우 초기값은 Button에 잘 셋팅되겠지만, 이미 View가 만들어진 상태에서 외부에서 Model의 값을 변경해도 상태 변화에 영향을 주지 못합니다.
 
@@ -237,11 +213,11 @@ SwiftUI는 일부 State가 변경 될 때 View Tree에서 꼭 필요한 부분�
 
 ### 1. print 삽입
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 6.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 6.png)
 
 ### 2. Self.printCahnges()
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 7.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 7.png)
 
 print문과 다르게 재실행된 이유를 같이 호출해줍니다.
 
@@ -251,7 +227,7 @@ print문과 다르게 재실행된 이유를 같이 호출해줍니다.
 
 ### 3. instruments
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 8.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 8.png)
 
 ### **Observable 매크로**
 
@@ -303,7 +279,7 @@ ObservableObject에서는 published 프로퍼티가 변하면 뷰가 해당 프�
 
 [**https://eunjin3786.tistory.com/580**](https://eunjin3786.tistory.com/580)
 
-![Untitled](/assets/images/SwiftUI/thinking/2/Untitled 9.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---2장-State-and-Binding/Untitled 9.png)
 
 - 매크로 기능은 iOS 17 이상
 

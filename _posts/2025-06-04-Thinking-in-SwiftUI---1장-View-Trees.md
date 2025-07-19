@@ -3,30 +3,15 @@ layout: post
 current: post
 navigation: True
 title: "Thinking in SwiftUI - 1장 View Trees"
-date: 2025-07-19 17:26:26
-tags: ['SwiftUI', 'iOS']
+date: 2025-06-04 18:16:30
+cover: 
+tags: ['swiftui', 'ios']
 class: post-template
 subclass: 'post tag-getting-started'
 author: jglee
 ---
-# Thinking in SwiftUI - 1장 View Trees
 
-
-뷰 트리와 렌더 트리는 SwiftUI 작업을 이해하는 데 있어 가장 기본적이고 중요한 개념입니다. 원하는 레이아웃을 얻기 위해서는 뷰 트리의 구성 방식을 이해해야 합니다.
-
-상태가 어떻게 작동하는지 이해하려면, SwiftUI에서 뷰의 수명과 그것이 만들고 있는 뷰 트리와의 관계를 이해하는 것이 중요합니다. 이를 이해하면, 데이터를 효율적으로 로드하고 필요할 때 뷰를 업데이트하는 SwiftUI 코드를 작성하는 데 도움이 됩니다.
-
-마지막으로, 애니메이션과 전환이 어떻게 작동하는지 이해하려면 뷰 트리에 대한 이해가 필요합니다.
-
-- 뷰 트리
-- 뷰 수명
-- 애니메이션 전환
-
-## **View Tree와 Render Tree**
-
----
-
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled.png)
 
 위와 같은 코드를 작성하면, 중앙에 일시적인 청사진이 구축되며, 이를 'View Tree'라고 합니다. 그 결과, 왼쪽처럼 View가 렌더링되어 보여집니다.
 
@@ -36,7 +21,7 @@ author: jglee
 
 만약, 아래와 같이 순서를 변경하게 된다면
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 1.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 1.png)
 
 `background`는 `padding`의 자식이 되며, `Text`에 `background`이 붙게 됩니다. 그러면 `background`에 `padding`이 붙어서 다음과 같은 모습이 됩니다.
 
@@ -51,7 +36,7 @@ SwiftUI는 '**뷰 빌더(ViewBuilder)**'라는 특별한 구문을 이용해 뷰
 - [https://minsone.github.io/swift-resultbuilder](https://minsone.github.io/swift-resultbuilder)
 - [https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md](https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md)
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 2.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 2.png)
 
 **`HStack`**은 클로저를 매개변수로 사용하며, 이 클로저는 **`@ViewBuilder`**로 표시됩니다. 이를 통해 내부에 여러 표현식을 작성할 수 있으며, 각 표현식은 뷰를 나타냅니다. 본질적으로 스택에 전달된 클로저는 이 예제에서 스택의 하위 뷰가 되는 뷰 목록을 생성합니다.
 
@@ -69,7 +54,7 @@ public static func buildBlock<C0, C1>(_ c0: C0, _ c1: C1) ->
 - 스택, 그리드 등과 같은 **모든 컨테이너 뷰**
 - `background`, `overlay`..
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 3.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 3.png)
 
 - [https://zeddios.tistory.com/m/1366](https://zeddios.tistory.com/m/1366)
 
@@ -79,7 +64,7 @@ public static func buildBlock<C0, C1>(_ c0: C0, _ c1: C1) ->
 
 SwiftUI 코드를 작성하고 ViewBuilder를 통해서 View 목록을 작성하는데, 이 때 View 목록도 동적일 수 있습니다. if - else 구문을 통해서 뷰를 동적으로 구성하는 방법은 아래와 같습니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 4.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 4.png)
 
 if 문 대신, if let, switch 문도 사용 가능합니다.
 
@@ -91,17 +76,17 @@ View Tree는 일시적으로 만들어지는 청사진의 역할을 하는 반�
 
 랜더 트리는 SwiftUI 내부에 존재하기 때문에, 직접 다룰일은 없습니다. 하지만, SwiftUI의 동작을 이해하는데 유용한 모델입니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 5.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 5.png)
 
 만약 옵셔널한 View 구조가 있다면, View Tree에서는 다음과 같이 생성됩니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 6.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 6.png)
 
 하지만, Render Tree의 경우에는 다릅니다. Text가 nil일 경우 View Tree가 Render Tree를 만들 땐 실제로 View에 대응되도록 HStack 안에 Image 하나만 존재합니다.
 
 만약에 State가 업데이트되서 View 업데이트가 동작하게 된다면, Render Tree에 Text가 삽입되거나, 제거됩니다. (하지만, Text의 문구가 변경어도 Text View가 새로 만들어지는 건 아닙니다.)
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 7.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 7.png)
 
 ## LifeTime
 
@@ -139,7 +124,7 @@ SwiftUI에서 View의 lifetime과 State의 lifetime은 동일한 의미를 갖�
 
 만약 작성한 코드에서 View의 ID값을 할당하지 않는다면, View Tree에서 생성될 View마다 고유 ID 값을 할당합니다. 이렇게 자동으로 할당되는 ID를 암시적 ID라 합니다. 이 ID 값을 통해서 뷰를 식별할 수 있고 ID가 동일할 경우 View를 새로 만드는게 아닌, 상태값을 업데이트 합니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 8.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 8.png)
 
 특이한 부분은 if else  브랜치에서 1이라는 동일한 ID 값 아래에 다른 ID값을 가진다는 것 입니다. 따라서 동일한 양쪽 다 동일한 Text를 사용하고 있지만, 다른 ID값을 가지고 있어 condition이 변경되면 새로 View를 만들어 추가하게 됩니다.
 
@@ -149,27 +134,27 @@ ID는 Hashable 값을 사용할 수 있습니다.
 
 아래의 경우 true, false 값을 ID로 사용해 2개의 Text를 번갈아 추가 삭제 할 수 있습니다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 9.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 9.png)
 
 - Explicit id는 **`.id(_:)`** 메서드를 사용하여 명시적으로 지정할 수 있습니다.
 
 그렇다면, 다음과 같이 하나의 Text를 만들어서 2번 사용하는 경우 ID값이 어떻게 될까?
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 10.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 10.png)
 
 View Tree에 표시된 것 처럼 다른 위치에 있기 때문에 View Tree에서 서로 다른 암시적인 ID값을 할당하고 별도의 뷰로 간주됩니다. 이 부분 때문에 View Tree를 청사진이라 생각할 수 있는 것 입니다.
 
 다음으로 만약에 이런 condition에 따라 분기하는 applayIf 를 만들고 적용하면 어떻게 될까?
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 11.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 11.png)
 
 적용한 코드 샘플을 보면 if else 형태로 하이라이트가 들어가면 background 모디파이어를 추가하는 형태로 구현하고 View Tree 역시 if else 형태와 유사한 모습을 보이고 있다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 12.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 12.png)
 
 이 경우 동일하게 Text는 변함이 없지만, 불필요하게 2개의 Text가 condition에 따라서 생성, 제거되는 모습을 볼 수 있다. 이런 패턴이 아닌 아래와 같은 패턴을 사용하는게 좋다.
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 13.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 13.png)
 
 이 경우 if else 의 값에 따라서 상태값을 변경해 랜더 노드를 추가, 삭제하지 않는다.
 
@@ -201,4 +186,4 @@ View Tree에 표시된 것 처럼 다른 위치에 있기 때문에 View Tree에
 
 [https://www.vadimbulavin.com/swiftui-view-lifecycle/](https://www.vadimbulavin.com/swiftui-view-lifecycle/)
 
-![Untitled](/assets/images/SwiftUI/thinking/1/Untitled 14.png)
+![Untitled](/assets/images/swiftui/2025-07-19-Thinking-in-SwiftUI---1장-View-Trees/Untitled 14.png)
