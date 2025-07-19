@@ -14,7 +14,7 @@ author: jglee
 
 # WWDC22 - Navigation Cook book in SwiftUI
 
-- [developer.apple.com/wwdc22/10054/](http://developer.apple.com/wwdc22/10054/)
+- [developer.apple.com/wwdc22/10054/](https://developer.apple.com/wwdc22/10054/)
 
 > SwiftUI를 사용하면서 항상 문제가 되는 부분은 Navigation입니다. 이번 iOS16 업데이트에서 딥링크, 프로그래밍적 navigation 등 다양한 장벽들을 해소할 수 있는 새로운 API가 많이 등장했습니다. 개인적으로 iOS 16부터 본격적으로 기존 UIKit을 대체할 수 있을 것으로 생각합니다.
 > 

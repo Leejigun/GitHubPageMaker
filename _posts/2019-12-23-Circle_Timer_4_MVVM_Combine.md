@@ -19,7 +19,7 @@ author: jglee
 
  예전에 SwiftUI와 MVVM에 대해서 글을 포스트를 올렸었다. 간단한 부분이었지만 이 포스트와 함께 보면 좋을 거 같다.
 
-[SwiftUI, Combine, MVVM 1) - Financing UI](https://leejigun.github.io/SwftUI)
+[SwiftUI, Combine, MVVM 1) - Financing UI](https://leejigun.github.io/SwiftUI,Combine,MVVM_1)-Financing)
 
  mvvm 아키텍처를 사용하기 위해서 view model 클래스를 만들어준다.
 ```swift

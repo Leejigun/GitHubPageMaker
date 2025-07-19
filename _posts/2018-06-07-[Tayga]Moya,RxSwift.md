@@ -128,7 +128,7 @@ Rx의 장점인 선언형 프로그래밍을 따라서 윗줄부터 한줄 한�
 
  try 를 보면 알겠지만, 이 메소드는 실패시 Error를 발생시킵니다. 이 메소드를 사용할 때에는 try {} catch {} 문과 함께 사용해야 하는데요. 여기서보면 그저 .map {} 오퍼레이터만을 사용하고 있습니다.
 
-([map](http://rxmarbles.com/#map)은 이벤트를 다른 이벤트로 변환하는 역할을 수행합니다. `Obserable<Response>` 이벤트가 `Obserable<GamesStruct>` 이벤트로 바뀌는 용도로 사용했습니다.)
+([map](https://rxmarbles.com/#map)은 이벤트를 다른 이벤트로 변환하는 역할을 수행합니다. `Obserable<Response>` 이벤트가 `Obserable<GamesStruct>` 이벤트로 바뀌는 용도로 사용했습니다.)
 
  만약, 여기서 실패해서 error를 만들게 된다면, `Obserable<Error>`가 반환됩니다.
 

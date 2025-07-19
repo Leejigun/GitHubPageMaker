@@ -13,7 +13,7 @@ author: jglee
 ---
 # SwiftUI, Combine, MVVM 1) - Financing MVVM을 중점으로
 
- 저번 [포스트](https://leejigun.github.io/SwftUI,Combine,MVVM_1)-Financing)에서 SwiftUI를 사용해 예제 디자인의 절반 정도 화면을 만들어보고 State를 이용해 MVVM viewModel을 만들어봤다. 사실 저번에 만든 viewModel은 MVVM 아키텍처를 구체화했다고 하기 뭐할 정도로 형편없었다.
+ 저번 [포스트](https://leejigun.github.io/SwiftUI,Combine,MVVM_1)-Financing)에서 SwiftUI를 사용해 예제 디자인의 절반 정도 화면을 만들어보고 State를 이용해 MVVM viewModel을 만들어봤다. 사실 저번에 만든 viewModel은 MVVM 아키텍처를 구체화했다고 하기 뭐할 정도로 형편없었다.
  이번 포스트에서는 저번에 만들었던 View Model을 조금씩 개선해 나가려 한다.
 
 

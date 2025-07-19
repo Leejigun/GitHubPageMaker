@@ -60,9 +60,9 @@ CAShapeLayer *circleLayer = [CAShapeLayer layer];
 [[image layer] addSublayer:circleLayer];
 ```
 
- UIView의 레이어를 건드려 원형 서클을 그리는 동작을 합니다. [UIView의 CALayer](http://minsone.github.io/mac/ios/coreanimationlayer-and-view) 에 대한 내용은 잘 설명된 한글 블로그를 확인해 주세요. UIView는 랜더링, 레이아웃, 터치 이벤트, 에니메이션 등을 처리할 수 있습니다. 그 중에서 화면에 관한 부분을 담당하는 코어 에니메이션 클래스인 CALayer입니다. 그 안에 layer 프로퍼티가 있는데, 이 레이어도 아키텍처 트리를 가진 계층으로 관리됩니다.
+ UIView의 레이어를 건드려 원형 서클을 그리는 동작을 합니다. [UIView의 CALayer](https://minsone.github.io/mac/ios/coreanimationlayer-and-view) 에 대한 내용은 잘 설명된 한글 블로그를 확인해 주세요. UIView는 랜더링, 레이아웃, 터치 이벤트, 에니메이션 등을 처리할 수 있습니다. 그 중에서 화면에 관한 부분을 담당하는 코어 에니메이션 클래스인 CALayer입니다. 그 안에 layer 프로퍼티가 있는데, 이 레이어도 아키텍처 트리를 가진 계층으로 관리됩니다.
 
- 이 때 원형을 그리는데 `UIBezierPath`  를 사용해 원을 그리고 있습니다. `UIBezierPath` 를 이용해 도형을 그리는 모습은 이 [블로그](http://sapzildj.github.io/dev.client/2015/08/25/ios_make_custom_path_with_UIBezierPath)를 확인해 주세요.
+ 이 때 원형을 그리는데 `UIBezierPath`  를 사용해 원을 그리고 있습니다. `UIBezierPath` 를 이용해 도형을 그리는 모습은 이 [블로그](https://sapzildj.github.io/dev.client/2015/08/25/ios_make_custom_path_with_UIBezierPath)를 확인해 주세요.
 
 
 

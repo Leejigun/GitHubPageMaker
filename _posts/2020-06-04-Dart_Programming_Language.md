@@ -22,7 +22,7 @@ Flutter를 공부하면서 Dart 언어를 공부하며 Dart 언어의 특징과 
 > 본 내용은 플러터 생존코딩 책을 공부하며 정리한 내용입니다.
 > 
 
-Swift를 공부할 때 xcode 플레이그라운드를 이용하면 쉽게 공부할 수 있는 것처럼 Dart 언어를 공부하는데 [dartpad.dev](http://dartpad.dev) 사이트를 이용하면 쉽게 공부할 수 있다.
+Swift를 공부할 때 xcode 플레이그라운드를 이용하면 쉽게 공부할 수 있는 것처럼 Dart 언어를 공부하는데 [dartpad.dev](https://dartpad.dev) 사이트를 이용하면 쉽게 공부할 수 있다.
 
 ![assets/images/flutter/Dart_Programming_Language/Untitled.png](assets/images/flutter/Dart_Programming_Language/Untitled.png)
 

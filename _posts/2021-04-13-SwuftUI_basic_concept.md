@@ -90,7 +90,7 @@ ZStack {
 
 - VStack, HStack, ZStack 같은 layout 역시 View
 - Text, RoundedRectangle 같은 elements 역시 View
-- [Color.pink](http://Color.pink) 같은
+- [Color.pink](https://Color.pink) 같은
 
 또한 modifier를 통해서 View를 수정, 변조하면 해당 View를 수정하는게 아닌 옵션이 적용된 다른 View를 반환해 교체하게 된다. 이는 SwiftUI의 모든 View는 class가 아닌 Struct이기 때문이다.
 
