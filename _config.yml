@@ -141,3 +141,4 @@ exclude:
   - changelog.md
   - "*.Rmd"
   # - .git*
+  - archive
