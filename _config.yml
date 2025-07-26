@@ -104,6 +104,7 @@ feed:
 # or "master" otherwise
 safe: False
 lsi: False
+future: true
 # Travis-CI 설정입니다.
 
 username: Leejigun
