@@ -4,7 +4,7 @@ current: post
 navigation: True
 title: "Apple Foundation Models 활용기(주차장 태그 생성)"
 date: 2025-07-26 00:00:00
-cover: "/assets/images/ios/2025-07-26-Apple-Foundation-Models-활용기주차장-태그-생성/2025-07-26_20-48-50.png"
+cover: "assets/images/ios/2025-07-26-Apple-Foundation-Models-활용기주차장-태그-생성/2025-07-26_20-48-50.png"
 tags: ['ios']
 class: post-template
 subclass: 'post tag-getting-started'
