@@ -81,8 +81,6 @@ permalink: /:title
 # gems and other configs
 plugins: [jekyll-paginate, jekyll-feed, jekyll-gist, jekyll-seo-tag]
 exclude: [vendor]
-feed:
-  path: feed.xml
 
 # Additional settings available on the front-matter
 # Site logo in the index.html (as in demo.ghost.io)
