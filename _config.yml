@@ -79,7 +79,7 @@ permalink: /:title
 # Tags' info in `_data/tags_info.yml`
 
 # gems and other configs
-plugins: [jekyll-paginate, jekyll-feed, jekyll-gist]
+plugins: [jekyll-paginate, jekyll-feed, jekyll-gist, jekyll-seo-tag]
 exclude: [vendor]
 feed:
   path: feed.xml
